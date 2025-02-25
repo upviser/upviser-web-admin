@@ -5,6 +5,7 @@ import { IService, ITag } from '@/interfaces'
 import { SlArrowDown, SlArrowUp } from 'react-icons/sl'
 import { IoMdClose } from 'react-icons/io'
 import { useSession } from 'next-auth/react'
+import { MdArrowBackIosNew, MdArrowDownward, MdArrowForwardIos, MdArrowUpward } from 'react-icons/md'
 
 interface Props {
     popupService: any
@@ -109,27 +110,29 @@ export const PopupNewService: React.FC<Props> = ({ popupService, setPopupService
             </Select>
           </div>
           {
-            newService.typePrice === 'Suscripción'
-              ? (
-                <>
-                  <div className="flex flex-col gap-2">
-                    <p>Precio mensual</p>
-                    <Input change={(e: any) => setNewService({ ...newService, price: e.target.value })} placeholder="Precio mensual" value={newService.price} />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <p>Precio anual</p>
-                    <Input change={(e: any) => setNewService({ ...newService, price: e.target.value })} placeholder="Precio anual" value={newService.anualPrice} />
-                  </div>
-                </>
-              )
-              : newService.typePrice === 'Pago unico' || newService.typePrice === '2 pagos'
+            newService.typeService !== 'Diferentes planes'
+              ? newService.typePrice === 'Suscripción'
                 ? (
-                  <div className="flex flex-col gap-2">
-                    <p>Precio</p>
-                    <Input change={(e: any) => setNewService({ ...newService, price: e.target.value })} placeholder="Precio" value={newService.price} />
-                  </div>
+                  <>
+                    <div className="flex flex-col gap-2">
+                      <p>Precio mensual</p>
+                      <Input change={(e: any) => setNewService({ ...newService, price: e.target.value })} placeholder="Precio mensual" value={newService.price} />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <p>Precio anual</p>
+                      <Input change={(e: any) => setNewService({ ...newService, price: e.target.value })} placeholder="Precio anual" value={newService.anualPrice} />
+                    </div>
+                  </>
                 )
-                : ''
+                : newService.typePrice === 'Pago unico' || newService.typePrice === '2 pagos'
+                  ? (
+                    <div className="flex flex-col gap-2">
+                      <p>Precio</p>
+                      <Input change={(e: any) => setNewService({ ...newService, price: e.target.value })} placeholder="Precio" value={newService.price} />
+                    </div>
+                  )
+                  : ''
+              : ''
           }
           {
             newService.typeService === 'Diferentes planes'
@@ -240,11 +243,19 @@ export const PopupNewService: React.FC<Props> = ({ popupService, setPopupService
                           <p>{plan.name}</p>
                           {
                             plan.characteristics?.map((characteristic, ind) => (
-                              <Input key={ind} change={(e: any) => {
-                                const oldPlans = {...newService.plans}
-                                oldPlans.plans![i].characteristics![ind] = e.target.value
-                                setNewService({ ...newService, plans: oldPlans })
-                              }} placeholder={`Caracteristica ${ind + 1}`} value={characteristic} />
+                              <div key={ind} className='flex gap-2 min-w-56'>
+                                <Input change={(e: any) => {
+                                  const oldPlans = {...newService.plans}
+                                  oldPlans.plans![i].characteristics![ind] = e.target.value
+                                  setNewService({ ...newService, plans: oldPlans })
+                                }} placeholder={`Caracteristica ${ind + 1}`} value={characteristic} />
+                                <button onClick={(e: any) => {
+                                  e.preventDefault()
+                                  const oldPlans = { ...newService.plans };
+                                  oldPlans.plans![i].characteristics!.splice(ind, 1); // Eliminar el índice
+                                  setNewService({ ...newService, plans: oldPlans });
+                                }}><IoMdClose className="text-2xl my-auto" /></button>
+                              </div>
                             ))
                           }
                           <Button2 action={(e: any) => {
@@ -279,12 +290,7 @@ export const PopupNewService: React.FC<Props> = ({ popupService, setPopupService
                       setNewFunctionality('')
                     }}>Crear</Button2>
                   </div>
-                  <div
-                    className="overflow-x-auto"
-                    style={{
-                      minHeight: `calc(59px + (55px * ${newService.plans!.functionalities.length ? newService.plans!.functionalities.length : 1}))`,
-                    }}
-                  >
+                  <div>
                     <table className="table-auto w-full border-collapse border">
                       <thead>
                         <tr>
@@ -327,7 +333,7 @@ export const PopupNewService: React.FC<Props> = ({ popupService, setPopupService
                                             });
                                           }}
                                           placeholder={`Plan ${planIndex + 1}`}
-                                          config="w-full"
+                                          config="w-full min-w-44"
                                           value={functiona.value}
                                         />
                                       );
@@ -365,6 +371,69 @@ export const PopupNewService: React.FC<Props> = ({ popupService, setPopupService
                                   }}
                                 >
                                   <IoMdClose className="text-2xl my-auto" />
+                                </button>
+                                <button
+                                  onClick={(e: any) => {
+                                    e.preventDefault();
+                                    if (i > 0) {
+                                      const updatedFunctionalities = [...newService.plans!.functionalities];
+                                      const [removed] = updatedFunctionalities.splice(i, 1);
+                                      updatedFunctionalities.splice(i - 1, 0, removed);
+
+                                      // Actualizar el estado de las funcionalidades
+                                      const updatedPlans = newService.plans!.plans.map(plan => ({
+                                        ...plan,
+                                        functionalities: plan.functionalities?.map(func => {
+                                          if (func.name === removed) {
+                                            return { ...func, name: removed };
+                                          }
+                                          return func;
+                                        }),
+                                      }));
+
+                                      setNewService({
+                                        ...newService,
+                                        plans: {
+                                          functionalities: updatedFunctionalities,
+                                          plans: updatedPlans,
+                                        },
+                                      });
+                                    }
+                                  }}
+                                >
+                                  <MdArrowUpward className="text-2xl my-auto" />
+                                </button>
+                                {/* Mover hacia abajo */}
+                                <button
+                                  onClick={(e: any) => {
+                                    e.preventDefault();
+                                    if (i < newService.plans!.functionalities.length - 1) {
+                                      const updatedFunctionalities = [...newService.plans!.functionalities];
+                                      const [removed] = updatedFunctionalities.splice(i, 1);
+                                      updatedFunctionalities.splice(i + 1, 0, removed);
+
+                                      // Actualizar el estado de las funcionalidades
+                                      const updatedPlans = newService.plans!.plans.map(plan => ({
+                                        ...plan,
+                                        functionalities: plan.functionalities?.map(func => {
+                                          if (func.name === removed) {
+                                            return { ...func, name: removed };
+                                          }
+                                          return func;
+                                        }),
+                                      }));
+
+                                      setNewService({
+                                        ...newService,
+                                        plans: {
+                                          functionalities: updatedFunctionalities,
+                                          plans: updatedPlans,
+                                        },
+                                      });
+                                    }
+                                  }}
+                                >
+                                  <MdArrowDownward className="text-2xl my-auto" />
                                 </button>
                               </td>
                             </tr>
