@@ -109,6 +109,13 @@ export const PopupNewService: React.FC<Props> = ({ popupService, setPopupService
               <option>Precio variable con 2 pagos</option>
             </Select>
           </div>
+          <div className="flex flex-col gap-2">
+            <p>IVA</p>
+            <Select change={(e: any) => setNewService({ ...newService, typePay: e.target.value })} value={newService.typePay}>
+              <option>El precio incluye el IVA</option>
+              <option>Hay que agregarle el IVA al precio</option>
+            </Select>
+          </div>
           {
             newService.typeService !== 'Diferentes planes'
               ? newService.typePrice === 'Suscripción'

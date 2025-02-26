@@ -331,6 +331,24 @@ export const Checkout: React.FC<Props> = ({ edit, pages, setPages, design, index
                       }} value={design.info.textColor} className='m-auto' />
                     </div>
                     <div className='flex flex-col gap-2'>
+                      <p className='font-medium m-auto'>Color bloque</p>
+                      <input type='color' onChange={(e: any) => {
+                        if (inde !== undefined) {
+                          const oldFunnels = [...funnels!]
+                          oldFunnels[inde].steps[ind].design![index].info.image = e.target.value
+                          setFunnels(oldFunnels)
+                        } else if (indx !== undefined) {
+                          const oldServices = [...services!]
+                          oldServices[indx].steps[ind].design![index].info.image = e.target.value
+                          setServices(oldServices)
+                        } else {
+                          const oldPages = [...pages]
+                          oldPages[ind].design[index].info.image = e.target.value
+                          setPages(oldPages)
+                        }
+                      }} value={design.info.image} className='m-auto' />
+                    </div>
+                    <div className='flex flex-col gap-2'>
                       <p className='font-medium m-auto'>Cual logo utilizar</p>
                       <Select change={(e: any) => {
                         if (inde !== undefined) {
@@ -391,7 +409,7 @@ export const Checkout: React.FC<Props> = ({ edit, pages, setPages, design, index
                     </div>
                   </div>
                 </div>
-                <div className={`flex flex-col gap-4 w-2/5 p-6 h-fit`} style={{ boxShadow: style.design === 'Sombreado' ? `0px 3px 20px 3px ${style.borderColor}10` : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '', border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '', color: design.info.textColor }}>
+                <div className={`flex flex-col gap-4 w-2/5 p-6 h-fit`} style={{ boxShadow: style.design === 'Sombreado' ? `0px 3px 20px 3px ${style.borderColor}10` : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '', border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '', color: design.info.textColor, backgroundColor: design.info.image }}>
                   <p>Seleccionar servicio</p>
                   <Select change={(e: any) => {
                     if (inde !== undefined) {
@@ -448,32 +466,95 @@ export const Checkout: React.FC<Props> = ({ edit, pages, setPages, design, index
                     e.preventDefault()
                     setError('')
                     setTitle('Nuevo servicio')
-                    setNewService({ name: '', description: '', steps: [{ step: '' }], typeService: '', typePrice: '', plans: { functionalities: [''], plans: [{ name: '', price: '', functionalities: [{ name: '', value: '' }] }] } })
+                    setNewService({ name: '', description: '', steps: [{ step: '' }], typeService: '', typePrice: '', typePay: 'El precio incluye el IVA', plans: { functionalities: [''], plans: [{ name: '', price: '', functionalities: [{ name: '', value: '' }] }] } })
                     setPopupService({ ...popupService, view: 'flex', opacity: 'opacity-0' })
                     setTimeout(() => {
                       setPopupService({ ...popupService, view: 'flex', opacity: 'opacity-1' })
                     }, 10)
-                  }}>Nuevo producto o servicio</Button>
+                  }}>Nuevo servicio</Button>
                   {
                     design.service && design.service.service !== ''
                       ? (
                         <>
                           <p className='font-medium text-lg'>{services.find(servi => servi._id === design.service?.service)?.name}</p>
                           <p>Tipo de pago: {services.find(servi => servi._id === design.service?.service)?.typePrice}</p>
+                          <div className='border-t w-full' />
                           {
-                            services.find(servi => servi._id === design.service?.service)?.typeService === 'Servicio unico' && (services.find(servi => servi._id === design.service?.service)?.typePrice === 'Facturación mensual' || services.find(servi => servi._id === design.service?.service)?.typePrice === 'Pago unico')
-                              ? <p className='text-xl font-medium'>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price))}</p>
-                              : ''
-                          }
-                          {
-                            services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)
-                              ? (
-                                <>
-                                  <p>{services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.description}</p>
-                                  <p className='text-lg'>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price))}</p>
-                                </>
-                              )
-                              : ''
+                            services.find(servi => servi._id === design.service?.service)?.typePay === 'El precio incluye el IVA'
+                              ? services.find(servi => servi._id === design.service?.service)?.typeService === 'Servicio unico' && (services.find(servi => servi._id === design.service?.service)?.typePrice === 'Facturación mensual' || services.find(servi => servi._id === design.service?.service)?.typePrice === 'Pago unico')
+                                ? (
+                                  <>
+                                    <div className='flex gap-2 justify-between'>
+                                      <p>Subtotal:</p>
+                                      <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price) / 100 * 96.39)}</p>
+                                    </div>
+                                    <div className='flex gap-2 justify-between'>
+                                      <p>IVA:</p>
+                                      <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price) / 100 * 22.61)}</p>
+                                    </div>
+                                    <div className='border-t w-full' />
+                                    <div className='flex gap-2 justify-between'>
+                                      <p className='font-medium'>Total:</p>
+                                      <p className='font-medium'>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price))}</p>
+                                    </div>
+                                  </>
+                                )
+                                : services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)
+                                  ? (
+                                    <>
+                                      <div className='flex gap-2 justify-between'>
+                                        <p>Subtotal:</p>
+                                        <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price) / 100 * 96.39)}</p>
+                                      </div>
+                                      <div className='flex gap-2 justify-between'>
+                                        <p>IVA:</p>
+                                        <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price) / 100 * 22.61)}</p>
+                                      </div>
+                                      <div className='border-t w-full' />
+                                      <div className='flex gap-2 justify-between'>
+                                        <p className='font-medium'>Total:</p>
+                                        <p className='font-medium'>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price))}</p>
+                                      </div>
+                                    </>
+                                  )
+                                  : ''
+                              : services.find(servi => servi._id === design.service?.service)?.typeService === 'Servicio unico' && (services.find(servi => servi._id === design.service?.service)?.typePrice === 'Facturación mensual' || services.find(servi => servi._id === design.service?.service)?.typePrice === 'Pago unico')
+                                ? (
+                                  <>
+                                    <div className='flex gap-2 justify-between'>
+                                      <p>Subtotal:</p>
+                                      <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price))}</p>
+                                    </div>
+                                    <div className='flex gap-2 justify-between'>
+                                      <p>IVA:</p>
+                                      <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price) / 100 * 19)}</p>
+                                    </div>
+                                    <div className='border-t w-full' />
+                                    <div className='flex gap-2 justify-between'>
+                                      <p className='font-medium'>Total:</p>
+                                      <p className='font-medium'>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price) + Number(services.find(servi => servi._id === design.service?.service)?.price) / 100 * 19)}</p>
+                                    </div>
+                                  </>
+                                )
+                                : services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)
+                                  ? (
+                                    <>
+                                      <div className='flex gap-2 justify-between'>
+                                        <p>Subtotal:</p>
+                                        <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price))}</p>
+                                      </div>
+                                      <div className='flex gap-2 justify-between'>
+                                        <p>IVA:</p>
+                                        <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price) / 100 * 19)}</p>
+                                      </div>
+                                      <div className='border-t w-full' />
+                                      <div className='flex gap-2 justify-between'>
+                                        <p className='font-medium'>Total:</p>
+                                        <p className='font-medium'>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price) + Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price) / 100 * 19)}</p>
+                                      </div>
+                                    </>
+                                  )
+                                  : ''
                           }
                         </>
                       )
@@ -520,7 +601,7 @@ export const Checkout: React.FC<Props> = ({ edit, pages, setPages, design, index
                     </div>
                   </div>
                 </div>
-                <div className={`flex flex-col gap-4 w-2/5 p-6 h-fit`} style={{ borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '', boxShadow: style.design === 'Sombreado' ? `0px 3px 20px 3px ${style.borderColor}10` : '', border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '', color: design.info.textColor }}>
+                <div className={`flex flex-col gap-4 w-2/5 p-6 h-fit`} style={{ borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '', boxShadow: style.design === 'Sombreado' ? `0px 3px 20px 3px ${style.borderColor}10` : '', border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '', color: design.info.textColor, backgroundColor: design.info.image }}>
                   {
                     services.find(servi => servi._id === design.service?.service)?.name
                       ? ''
@@ -532,20 +613,83 @@ export const Checkout: React.FC<Props> = ({ edit, pages, setPages, design, index
                         <>
                           <p className='font-medium text-lg'>{services.find(servi => servi._id === design.service?.service)?.name}</p>
                           <p>Tipo de pago: {services.find(servi => servi._id === design.service?.service)?.typePrice}</p>
+                          <div className='border-t w-full' />
                           {
-                            services.find(servi => servi._id === design.service?.service)?.typeService === 'Servicio unico' && (services.find(servi => servi._id === design.service?.service)?.typePrice === 'Facturación mensual' || services.find(servi => servi._id === design.service?.service)?.typePrice === 'Pago unico')
-                              ? <p className='text-xl font-medium'>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price))}</p>
-                              : ''
-                          }
-                          {
-                            services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)
-                              ? (
-                                <>
-                                  <p>{services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.description}</p>
-                                  <p className='text-xl font-medium'>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price))}</p>
-                                </>
-                              )
-                              : ''
+                            services.find(servi => servi._id === design.service?.service)?.typePay === 'El precio incluye el IVA'
+                              ? services.find(servi => servi._id === design.service?.service)?.typeService === 'Servicio unico' && (services.find(servi => servi._id === design.service?.service)?.typePrice === 'Facturación mensual' || services.find(servi => servi._id === design.service?.service)?.typePrice === 'Pago unico')
+                                ? (
+                                  <>
+                                    <div className='flex gap-2 justify-between'>
+                                      <p>Subtotal:</p>
+                                      <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price) / 100 * 96.39)}</p>
+                                    </div>
+                                    <div className='flex gap-2 justify-between'>
+                                      <p>IVA:</p>
+                                      <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price) / 100 * 22.61)}</p>
+                                    </div>
+                                    <div className='border-t w-full' />
+                                    <div className='flex gap-2 justify-between'>
+                                      <p className='font-medium'>Total:</p>
+                                      <p className='font-medium'>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price))}</p>
+                                    </div>
+                                  </>
+                                )
+                                : services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)
+                                  ? (
+                                    <>
+                                      <div className='flex gap-2 justify-between'>
+                                        <p>Subtotal:</p>
+                                        <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price) / 100 * 96.39)}</p>
+                                      </div>
+                                      <div className='flex gap-2 justify-between'>
+                                        <p>IVA:</p>
+                                        <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price) / 100 * 22.61)}</p>
+                                      </div>
+                                      <div className='border-t w-full' />
+                                      <div className='flex gap-2 justify-between'>
+                                        <p className='font-medium'>Total:</p>
+                                        <p className='font-medium'>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price))}</p>
+                                      </div>
+                                    </>
+                                  )
+                                  : ''
+                              : services.find(servi => servi._id === design.service?.service)?.typeService === 'Servicio unico' && (services.find(servi => servi._id === design.service?.service)?.typePrice === 'Facturación mensual' || services.find(servi => servi._id === design.service?.service)?.typePrice === 'Pago unico')
+                                ? (
+                                  <>
+                                    <div className='flex gap-2 justify-between'>
+                                      <p>Subtotal:</p>
+                                      <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price))}</p>
+                                    </div>
+                                    <div className='flex gap-2 justify-between'>
+                                      <p>IVA:</p>
+                                      <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price) / 100 * 19)}</p>
+                                    </div>
+                                    <div className='border-t w-full' />
+                                    <div className='flex gap-2 justify-between'>
+                                      <p className='font-medium'>Total:</p>
+                                      <p className='font-medium'>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.price) + Number(services.find(servi => servi._id === design.service?.service)?.price) / 100 * 19)}</p>
+                                    </div>
+                                  </>
+                                )
+                                : services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)
+                                  ? (
+                                    <>
+                                      <div className='flex gap-2 justify-between'>
+                                        <p>Subtotal:</p>
+                                        <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price))}</p>
+                                      </div>
+                                      <div className='flex gap-2 justify-between'>
+                                        <p>IVA:</p>
+                                        <p>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price) / 100 * 19)}</p>
+                                      </div>
+                                      <div className='border-t w-full' />
+                                      <div className='flex gap-2 justify-between'>
+                                        <p className='font-medium'>Total:</p>
+                                        <p className='font-medium'>${NumberFormat(Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price) + Number(services.find(servi => servi._id === design.service?.service)?.plans?.plans.find(plan => plan.name === design.service?.plan)?.price) / 100 * 19)}</p>
+                                      </div>
+                                    </>
+                                  )
+                                  : ''
                           }
                         </>
                       )

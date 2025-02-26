@@ -7,6 +7,7 @@ export interface IService {
     steps: IStepService[]
     typeService: string
     typePrice: string
+    typePay: string
     price?: string
     anualPrice?: string
     plans?: IPlans

@@ -86,7 +86,7 @@ export default function Page () {
   const [services, setServices] = useState<IService[]>([])
   const [popupService, setPopupService] = useState({ view: 'hidden', opacity: 'opacity-0', mouse: false })
   const [newFunctionality, setNewFunctionality] = useState('')
-  const [newService, setNewService] = useState<IService>({ name: '', steps: [{ step: '' }], typeService: '', typePrice: '', plans: { functionalities: [''], plans: [{ name: '', price: '', functionalities: [{ name: '', value: '' }] }] }})
+  const [newService, setNewService] = useState<IService>({ name: '', steps: [{ step: '' }], typeService: '', typePrice: '', typePay: 'El precio incluye el IVA', plans: { functionalities: [''], plans: [{ name: '', price: '', functionalities: [{ name: '', value: '' }] }] }})
   const [loadingService, setLoadingService] = useState(false)
   const [loadingImage, setLoadingImage] = useState(false)
   const [errorImage, setErrorImage] = useState('')

@@ -11,7 +11,7 @@ export default function Page() {
 
   const [services, setServices] = useState<IService[]>([])
   const [loading, setLoading] = useState(true)
-  const [newService, setNewService] = useState<IService>({ name: '', steps: [{ step: '' }], typeService: '', typePrice: '', plans: { functionalities: [''], plans: [{ name: '', price: '', functionalities: [{ name: '', value: '' }] }] }})
+  const [newService, setNewService] = useState<IService>({ name: '', steps: [{ step: '' }], typeService: '', typePrice: '', typePay: 'El precio incluye el IVA', plans: { functionalities: [''], plans: [{ name: '', price: '', functionalities: [{ name: '', value: '' }] }] }})
   const [popup, setPopup] = useState({ view: 'hidden', opacity: 'opacity-0', mouse: false })
   const [title, setTitle] = useState('Nuevo servicio')
   const [error, setError] = useState('')
@@ -79,7 +79,7 @@ export default function Page() {
           <Button action={(e: any) => {
             e.preventDefault()
             setError('')
-            setNewService({ name: '', description: '', steps: [{ step: '' }], typeService: '', typePrice: '', plans: { functionalities: [''], plans: [{ name: '', price: '', functionalities: [{ name: '', value: '' }] }] }, tags: [] })
+            setNewService({ name: '', description: '', steps: [{ step: '' }], typeService: '', typePrice: '', typePay: 'El precio incluye el IVA', plans: { functionalities: [''], plans: [{ name: '', price: '', functionalities: [{ name: '', value: '' }] }] }, tags: [] })
             setTitle('Nuevo servicio')
             setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
             setTimeout(() => {
