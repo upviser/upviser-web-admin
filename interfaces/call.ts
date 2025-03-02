@@ -6,7 +6,7 @@ export interface ICall {
     duration: string
     description?: string
     price?: string
-    labels?: { text: string, name: string, data: string }[]
+    labels?: { type: string, text: string, data?: string, datas?: string[] }[]
     buttonText?: string
     tags?: string[]
     action: string

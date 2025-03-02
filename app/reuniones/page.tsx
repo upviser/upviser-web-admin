@@ -13,7 +13,7 @@ export default function CallsPage () {
   const [loading, setLoading] = useState(true)
   const [popupCall, setPopupCall] = useState({ view: 'hidden', opacity: 'opacity-0', mouse: false })
   const [popupDelete, setPopupDelete] = useState({ view: 'hidden', opacity: 'opacity-0', mouse: false })
-  const [newCall, setNewCall] = useState<ICall>({ nameMeeting: '', duration: '15 minutos', labels: [{ data: '', name: '', text: '' }], tags: [], action: 'Mostrar mensaje' })
+  const [newCall, setNewCall] = useState<ICall>({ nameMeeting: '', duration: '15 minutos', labels: [{ data: '', text: '', type: '' }], tags: [], action: 'Mostrar mensaje' })
   const [tags, setTags] = useState<ITag[]>([])
   const [error, setError] = useState('')
   const [funnels, setFunnels] = useState<IFunnel[]>([])
@@ -125,7 +125,7 @@ export default function CallsPage () {
               <Button action={(e: any) => {
                 e.preventDefault()
                 setTitle('Crear reunion')
-                setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', title: '', price: '', tags: [], labels: [{ data: '', name: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
+                setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', title: '', price: '', tags: [], labels: [{ data: '', text: '', type: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
                 setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
                 setTimeout(() => {
                   setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-1' })
@@ -179,12 +179,12 @@ export default function CallsPage () {
                               <div className="flex gap-4 flex-col lg:flex-row">
                                 <Select change={(e: any) => {
                                   if (e.target.value === 'Todas las llamadas') {
-                                    setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', title: '', price: '', tags: [], labels: [{ data: '', name: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
+                                    setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', title: '', price: '', tags: [], labels: [{ data: '', text: '', type: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
                                     const meetingsFiltered = meetings.filter(meeting => meeting.calendar === selectCaledar)
                                     setFilteredMeetings(meetingsFiltered)
                                     setCallSelect('')
                                   } else {
-                                    setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', title: '', price: '', tags: [], labels: [{ data: '', name: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
+                                    setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', title: '', price: '', tags: [], labels: [{ data: '', text: '', type: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
                                     const filterMeetings = meetings?.filter(meeting => meeting.meeting === e.target.value)
                                     setFilteredMeetings(filterMeetings)
                                     setCallSelect(e.target.value)
@@ -203,7 +203,7 @@ export default function CallsPage () {
                                       <>
                                         <Button2 action={(e: any) => {
                                           e.preventDefault()
-                                          const call = calls.find(call => call.nameMeeting === callSelect)
+                                          const call = calls.find(call => call._id === callSelect)
                                           if (call) {
                                             setNewCall(call)
                                           }

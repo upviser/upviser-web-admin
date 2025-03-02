@@ -4,6 +4,7 @@ import { Button, Button2, ButtonSubmit2, Calendar, Input, Select, Textarea } fro
 import { ICall, IClientData, IFunnel, ITag } from '@/interfaces'
 import { AiOutlineClose } from 'react-icons/ai'
 import { useSession } from 'next-auth/react'
+import { IoMdClose } from 'react-icons/io'
 
 interface Props {
   popupCall: { view: string, opacity: string, mouse: boolean }
@@ -191,17 +192,16 @@ export const PopupNewCall: React.FC<Props> = ({ popupCall, setPopupCall, titleMe
                         setNewCall({ ...newCall, labels: oldLabels })
                       }}><AiOutlineClose /></button>
                     </div>
-                    <p>Texto</p>
-                    <Input placeholder='Texto' change={(e: any) => {
+                    <p>Pregunta</p>
+                    <Input change={(e: any) => {
                       const oldData = [...newCall.labels!]
                       oldData[i].text = e.target.value
                       setNewCall({ ...newCall, data: oldData })
-                    }} value={label.text} />
+                    }} value={label.text} placeholder='Pregunta' />
                     <p>Dato</p>
                     <Select change={(e: any) => {
                       const oldData = [...newCall.labels!]
                       oldData[i].data = e.target.value
-                      oldData[i].name = clientData.find(dat => dat.data === e.target.value)!.name
                       setNewCall({ ...newCall, data: oldData })
                     }} value={label.data}>
                       <option value=''>Seleccionar dato</option>
@@ -213,6 +213,53 @@ export const PopupNewCall: React.FC<Props> = ({ popupCall, setPopupCall, titleMe
                           : ''
                       }
                     </Select>
+                    <p>Tipo de respuesta</p>
+                    <Select change={(e: any) => {
+                      const oldData = [...newCall.labels!]
+                      oldData[i].type = e.target.value
+                      if (e.target.value === 'Selector') {
+                        oldData[i].datas = ['']
+                      }
+                      setNewCall({ ...newCall, data: oldData })
+                    }} value={label.type}>
+                      <option value=''>Seleccionar tipo de respuesta</option>
+                      <option>Texto</option>
+                      <option>Selector</option>
+                    </Select>
+                    {
+                      label.type === 'Selector'
+                        ? (
+                          <>
+                            <p>Respuestas</p>
+                            {
+                              label.datas?.map((data, indexx) => (
+                                <div key={data} className='flex gap-2'>
+                                  <Input change={(e: any) => {
+                                    const oldData = [...newCall.labels!]
+                                    oldData[i].datas![indexx] = e.target.value
+                                    setNewCall({ ...newCall, data: oldData })
+                                  }} value={data} placeholder={`Repuesta ${indexx + 1}`} />
+                                  <button onClick={(e: any) => {
+                                    e.preventDefault()
+                                    const oldData = [...newCall.labels!]
+                                    oldData[i].datas?.splice(indexx, 1)
+                                    setNewCall({ ...newCall, data: oldData })
+                                  }}>
+                                    <IoMdClose className='text-2xl' />
+                                  </button>
+                                </div>
+                              ))
+                            }
+                            <Button2 action={(e: any) => {
+                              e.preventDefault()
+                              const oldData = [...newCall.labels!]
+                              oldData[i].datas?.push('')
+                              setNewCall({ ...newCall, data: oldData })
+                            }}>Agregar respuesta</Button2>
+                          </>
+                        )
+                        : ''
+                    }
                   </>
                 ))
                 : ''
@@ -221,7 +268,7 @@ export const PopupNewCall: React.FC<Props> = ({ popupCall, setPopupCall, titleMe
               e.preventDefault()
               if (newCall.labels) {
                 const oldData = [...newCall.labels]
-                oldData.push({ text: '', data: '', name: '' })
+                oldData.push({ type: '', text: '', data: '' })
                 setNewCall({ ...newCall, labels: oldData })
               } else {
                 setNewCall({ ...newCall, data: [{ data: '', text: '' }] })

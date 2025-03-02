@@ -71,7 +71,7 @@ export default function Page () {
   const [titleForm, setTitleForm] = useState('')
   const [newForm, setNewForm] = useState<IForm>({ nameForm: '', informations: [{ icon: '', text: '' }], labels: [{ data: '', name: '', text: '', type: '', datas: [] }], button: '', action: 'Ir a una pagina', tags: [] })
   const [calls, setCalls] = useState<ICall[]>()
-  const [newCall, setNewCall] = useState<ICall>({ nameMeeting: '', duration: '15 minutos', labels: [{ data: '', name: '', text: '' }], buttonText: '', tags: [], action: 'Mostrar mensaje' })
+  const [newCall, setNewCall] = useState<ICall>({ nameMeeting: '', duration: '15 minutos', labels: [{ type: '', data: '', text: '' }], buttonText: '', tags: [], action: 'Mostrar mensaje' })
   const [popupCall, setPopupCall] = useState({ view: 'hidden', opacity: 'opacity-0', mouse: false })
   const [titleMeeting, setTitleMeeting] = useState('')
   const [popupDeletePage, setPopupDeletePage] = useState({ view: 'hidden', opacity: 'opacity-0', mouse: false })
@@ -634,7 +634,7 @@ export default function Page () {
                       <Button2 action={(e: any) => {
                         e.preventDefault()
                         setError('')
-                        setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', description: '', title: '', labels: [{ data: '', name: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '' })
+                        setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', description: '', title: '', labels: [{ type: '', data: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '' })
                         setTitleMeeting('Crear llamada')
                         setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
                         setTimeout(() => {
@@ -849,7 +849,7 @@ export default function Page () {
                       setTimeout(() => {
                         setPopupService({ ...popupService, view: 'flex', opacity: 'opacity-1' })
                       }, 10)
-                    }}>Editar embudo</Button2>
+                    }}>Editar servicio</Button2>
                   </div>
                 )
                 : ''
@@ -1367,7 +1367,7 @@ export default function Page () {
                     <Button2 action={(e: any) => {
                       e.preventDefault()
                       setError('')
-                      setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', description: '', title: '', labels: [{ data: '', name: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '' })
+                      setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', description: '', title: '', labels: [{ type: '', data: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '' })
                       setTitleMeeting('Crear llamada')
                       setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
                       setTimeout(() => {
@@ -1576,7 +1576,7 @@ export default function Page () {
                     setTimeout(() => {
                       setPopupService({ ...popupService, view: 'flex', opacity: 'opacity-1' })
                     }, 10)
-                  }}>Editar embudo</Button2>
+                  }}>Editar servicio</Button2>
                 </div>
               )
               : ''
