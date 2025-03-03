@@ -411,12 +411,12 @@ export const Call: React.FC<Props> = ({ edit, pages, setPages, design, index, in
                           setLoading(true)
                           setError('')
                           setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', description: '', title: '', labels: [{ data: '', name: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '', calendar: '' })
-                          setTitleMeeting('Crear llamada')
+                          setTitleMeeting('Crear reunion')
                           setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
                           setTimeout(() => {
                             setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-1' })
                           }, 10)
-                        }}>Crear llamada</Button2>
+                        }}>Crear reunion</Button2>
                         {
                           design.meeting && design.meeting !== ''
                             ? <Button2Secondary action={(e: any) => {
