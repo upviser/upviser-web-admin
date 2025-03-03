@@ -57,7 +57,9 @@ export const Layout: React.FC<PropsWithChildren<Props>> = ({ children, edit, set
                   ? <Link href='/'><Image className='w-auto h-[52px] py-1' src={`${storeData.logo}`} alt='Logo' width={155} height={53.72} /></Link>
                   : storeData?.logoWhite && storeData?.logoWhite !== '' && header.logo === 'Logo blanco'
                     ? <Link href='/'><Image className='w-auto h-[52px] py-1' src={`${storeData.logoWhite}`} alt='Logo blanco' width={155} height={53.72} /></Link>
-                    : <Link href='/'><div className='h-[52px] flex'><p className='m-auto text-2xl font-medium text-black'>SITIO WEB</p></div></Link>
+                    : storeData?.logo && storeData?.logo !== ''
+                      ? <Link href='/'><Image className='w-auto h-[52px] py-1' src={`${storeData.logo}`} alt='Logo' width={155} height={53.72} /></Link>
+                      : <Link href='/'><div className='h-[52px] flex'><p className='m-auto text-2xl font-medium text-black'>SITIO WEB</p></div></Link>
               }
               {
                 edit === 'Header'
