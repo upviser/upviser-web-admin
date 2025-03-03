@@ -67,7 +67,6 @@ export default function Page () {
     if (!loading) {
       setLoading(true)
       setError('')
-      console.log(loginData)
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/shop-login`, loginData)
       const res = await signIn('credentials', {
         email: loginData.email,

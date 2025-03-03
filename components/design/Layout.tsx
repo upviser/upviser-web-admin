@@ -22,7 +22,7 @@ interface Props {
 export const Layout: React.FC<PropsWithChildren<Props>> = ({ children, edit, setEdit, setHeader, header, setPart, pages, storeData, responsive, style, footer, setFooter }) => {
   return (
     <>
-      <div className='flex pl-2 pr-2 pt-1.5 pb-1.5 sticky text-center' style={{ backgroundColor: header.bgColorTop, color: header.textColorTop }}>
+      <div className='flex pl-2 pr-2 pt-1.5 pb-1.5 sticky text-center' style={{ backgroundColor: header.bgColorTop && header.bgColorTop !== '' ? header.bgColorTop : '#111111', color: header.textColorTop }}>
         {
           edit !== 'Header'
             ? <p onClick={() => setEdit('Header')} className='cursor-pointer m-auto tracking-wide font-medium text-[11px]'>{header?.topStrip}</p>
@@ -37,7 +37,7 @@ export const Layout: React.FC<PropsWithChildren<Props>> = ({ children, edit, set
             )
         }
       </div>
-      <div style={{ top: '-0.5px', backgroundColor: header.bgColor, color: header.textColor }} className="w-full sticky flex z-30 overflow-x-auto">
+      <div style={{ top: '-0.5px', backgroundColor: header.bgColor && header.bgColor !== '' ? header.bgColor : '#ffffff', color: header.textColor }} className="w-full sticky flex z-30 overflow-x-auto">
         <div className="w-full" style={{ borderBottom: `1px solid ${style.borderColor}` }}>
           <div className='flex gap-4 px-2 justify-between m-auto max-w-[1280px] w-full'>
             {
@@ -115,7 +115,7 @@ export const Layout: React.FC<PropsWithChildren<Props>> = ({ children, edit, set
         </div>
       </div>
       { children }
-      <div className='flex pl-4 pr-4 pt-14 pb-24 z-40' style={{ backgroundColor: footer?.bgColor, color: footer?.textColor }}>
+      <div className='flex pl-4 pr-4 pt-14 pb-24 z-40' style={{ backgroundColor: footer?.bgColor && footer.bgColor !== '' ? footer.bgColor : '#111111', color: footer?.textColor && footer.textColor !== '' ? footer.textColor : '#ffffff' }}>
         <div className='w-[1280px] m-auto'>
           <div className='flex gap-4 justify-between flex-wrap pb-6 border-b'>
             <div>
