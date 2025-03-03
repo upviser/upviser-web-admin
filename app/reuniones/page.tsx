@@ -178,7 +178,7 @@ export default function CallsPage () {
                               <p>Seleccionar reunion</p>
                               <div className="flex gap-4 flex-col lg:flex-row">
                                 <Select change={(e: any) => {
-                                  if (e.target.value === 'Todas las llamadas') {
+                                  if (e.target.value === 'Todas las reuniones') {
                                     setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', title: '', price: '', tags: [], labels: [{ data: '', text: '', type: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
                                     const meetingsFiltered = meetings.filter(meeting => meeting.calendar === selectCaledar)
                                     setFilteredMeetings(meetingsFiltered)
