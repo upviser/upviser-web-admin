@@ -233,7 +233,7 @@ export const PopupNewCall: React.FC<Props> = ({ popupCall, setPopupCall, titleMe
                             <p>Respuestas</p>
                             {
                               label.datas?.map((data, indexx) => (
-                                <div key={data} className='flex gap-2'>
+                                <div key={indexx} className='flex gap-2'>
                                   <Input change={(e: any) => {
                                     const oldData = [...newCall.labels!]
                                     oldData[i].datas![indexx] = e.target.value

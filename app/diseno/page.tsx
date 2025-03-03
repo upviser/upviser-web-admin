@@ -1767,7 +1767,7 @@ export default function Page () {
                                                                     : design.content === 'Preguntas frecuentes'
                                                                       ? <Faq edit={edit} pages={pages} setPages={setPages} design={design} index={index} ind={i} services={services} responsive={responsive} pageNeed={pages} style={style} />
                                                                       : design.content === 'Bloques'
-                                                                        ? <Blocks edit={edit} pages={pages} setPages={setPages} design={design} index={index} ind={i} responsive={responsive} pageNeed={pages} style={style} forms={forms} funnels={funnels} />
+                                                                        ? <Blocks edit={edit} pages={pages} setPages={setPages} design={design} index={index} ind={i} responsive={responsive} pageNeed={pages} style={style} forms={forms} funnels={funnels} calls={calls} />
                                                                         : design.content === 'Reseñas'
                                                                           ? <Reviews edit={edit} pages={pages} setPages={setPages} design={design} index={index} ind={i} responsive={responsive} pageNeed={pages} style={style} />
                                                                           : design.content === 'Formulario'
