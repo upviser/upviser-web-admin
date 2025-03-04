@@ -362,6 +362,7 @@ export const Call: React.FC<Props> = ({ edit, pages, setPages, design, index, in
                           setPages(oldPages)
                         }
                       }} config='text-black' value={design.info.video}>
+                        <option>Sin logo</option>
                         <option>Logo</option>
                         <option>Logo blanco</option>
                       </Select>
@@ -370,7 +371,7 @@ export const Call: React.FC<Props> = ({ edit, pages, setPages, design, index, in
                           ? <Image src={storeData.logo} alt={`Imagen logo ${storeData.name}`} width={200} height={150} className='w-40' />
                           : storeData?.logoWhite && storeData.logoWhite !== '' && design.info.video === 'Logo blanco'
                             ? <Image src={storeData.logoWhite} alt={`Imagen logo ${storeData.name}`} width={200} height={150} className='w-40' />
-                            : <p className='text-lg font-medium'>{storeData?.name}</p>
+                            : ''
                       }
                       {
                         calls?.length
@@ -531,7 +532,7 @@ export const Call: React.FC<Props> = ({ edit, pages, setPages, design, index, in
                           ? <Image src={storeData.logo} alt={`Imagen logo ${storeData.name}`} width={200} height={150} className='w-40' />
                           : storeData?.logoWhite && storeData.logoWhite !== '' && design.info.video === 'Logo blanco'
                             ? <Image src={storeData.logoWhite} alt={`Imagen logo ${storeData.name}`} width={200} height={150} className='w-40' />
-                            : <p className='text-lg font-medium'>{storeData?.name}</p>
+                            : ''
                       }
                       {
                         calls?.find(call => call._id === design.meeting)

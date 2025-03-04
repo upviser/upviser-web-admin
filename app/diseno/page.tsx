@@ -634,7 +634,7 @@ export default function Page () {
                       <Button2 action={(e: any) => {
                         e.preventDefault()
                         setError('')
-                        setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', description: '', title: '', labels: [{ type: '', data: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '' })
+                        setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', description: '', title: '', labels: [{ type: '', data: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '' })
                         setTitleMeeting('Crear llamada')
                         setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
                         setTimeout(() => {
@@ -1367,7 +1367,7 @@ export default function Page () {
                     <Button2 action={(e: any) => {
                       e.preventDefault()
                       setError('')
-                      setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', description: '', title: '', labels: [{ type: '', data: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '' })
+                      setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', description: '', title: '', labels: [{ type: '', data: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '' })
                       setTitleMeeting('Crear llamada')
                       setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
                       setTimeout(() => {

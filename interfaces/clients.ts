@@ -11,6 +11,10 @@ export interface IClient {
   tags?: string[]
   emails?: IEmailClient[]
   data?: { name: string, value: string }[]
+  address?: string
+  details?: string
+  city?: string
+  region?: string
 
   createdAt?: Date
   updatedAt?: Date

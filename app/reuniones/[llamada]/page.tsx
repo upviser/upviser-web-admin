@@ -152,11 +152,11 @@ export default function Page ({ params }: { params: { llamada: string } }) {
                       <p>{date}</p>
                     </div>
                     {
-                      meeting?.type === 'Visita'
+                      meeting?.type?.includes('Visita')
                         ? (
                           <div className="flex flex-col gap-2">
                             <p className="font-medium">Lugar</p>
-                            <p>{storeData?.address}, {storeData?.city}, {storeData?.region}</p>
+                            <p>{meeting.type === 'Visita a domicilio' ? `${meeting.address}, ${meeting.city}, ${meeting.region}` : `${storeData?.address}, ${storeData?.city}, ${storeData?.region}`}</p>
                           </div>
                         )
                         : ''

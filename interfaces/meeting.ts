@@ -13,4 +13,8 @@ export interface IMeeting {
     step?: string
     calendar?: string
     type?: string
+    address?: string
+    details?: string
+    city?: string
+    region?: string
 }

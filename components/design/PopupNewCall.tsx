@@ -70,23 +70,6 @@ export const PopupNewCall: React.FC<Props> = ({ popupCall, setPopupCall, titleMe
           if (!loadingNewCall) {
             setLoadingNewCall(true)
             setError('')
-            if (session?.user.plan === 'Inicial' && calls?.filter(call => call.type === 'Llamada por Zoom').length === 2) {
-              setError('Solo puedes tener 2 llamadas por Zoom')
-              setLoadingNewCall(false)
-              return
-            } else if (session?.user.plan === 'Inicial' && calls?.filter(call => call.type === 'Visita').length === 2) {
-              setError('Solo puedes tener 2 visitas')
-              setLoadingNewCall(false)
-              return
-            } else if (session?.user.plan === 'Emprendedor' && calls?.filter(call => call.type === 'Llamada por Zoom').length === 5) {
-              setError('Solo puedes tener 5 llamadas por Zoom')
-              setLoadingNewCall(false)
-              return
-            } else if (session?.user.plan === 'Emprendedor' && calls?.filter(call => call.type === 'Visita').length === 5) {
-              setError('Solo puedes tener 5 visitas')
-              setLoadingNewCall(false)
-              return
-            }
             if (titleMeeting === 'Crear reunion') {
               if (newCall.nameMeeting !== '') {
                 await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/call`, newCall)
@@ -119,11 +102,57 @@ export const PopupNewCall: React.FC<Props> = ({ popupCall, setPopupCall, titleMe
           <p className="text-lg font-medium">{titleMeeting}</p>
           <div className="flex flex-col gap-2">
             <p>Tipo</p>
-            <Select change={(e: any) => setNewCall({ ...newCall, type: e.target.value })} value={newCall.type}>
-              <option value=''>Seleccionar tipo</option>
-              <option>Llamada por Zoom</option>
-              <option>Visita</option>
-            </Select>
+            <div className='flex gap-2'>
+              <input type='checkbox' onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                const zoomCallType = 'Llamada por Zoom';
+                const newTypes = newCall.type ? [...newCall.type] : [];
+                if (e.target.checked && !newTypes.includes(zoomCallType)) {
+                  newTypes.push(zoomCallType);
+                } else {
+                  // Si desmarcas el checkbox, se elimina el tipo
+                  const index = newTypes.indexOf(zoomCallType);
+                  if (index !== -1) {
+                    newTypes.splice(index, 1);
+                  }
+                }
+                setNewCall({ ...newCall, type: newTypes });
+              }} checked={newCall.type?.length ? newCall.type.find(typ => typ === 'Llamada por Zoom') ? true : false : false} />
+              <p>Llamada por Zoom</p>
+            </div>
+            <div className='flex gap-2'>
+              <input type='checkbox' onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                const zoomCallType = 'Visita a domicilio';
+                const newTypes = newCall.type ? [...newCall.type] : [];
+                if (e.target.checked && !newTypes.includes(zoomCallType)) {
+                  newTypes.push(zoomCallType);
+                } else {
+                  // Si desmarcas el checkbox, se elimina el tipo
+                  const index = newTypes.indexOf(zoomCallType);
+                  if (index !== -1) {
+                    newTypes.splice(index, 1);
+                  }
+                }
+                setNewCall({ ...newCall, type: newTypes });
+              }} checked={newCall.type?.length ? newCall.type.find(typ => typ === 'Visita a domicilio') ? true : false : false} />
+              <p>Visita a domicilio</p>
+            </div>
+            <div className='flex gap-2'>
+              <input type='checkbox' onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                const zoomCallType = 'Visita al local';
+                const newTypes = newCall.type ? [...newCall.type] : [];
+                if (e.target.checked && !newTypes.includes(zoomCallType)) {
+                  newTypes.push(zoomCallType);
+                } else {
+                  // Si desmarcas el checkbox, se elimina el tipo
+                  const index = newTypes.indexOf(zoomCallType);
+                  if (index !== -1) {
+                    newTypes.splice(index, 1);
+                  }
+                }
+                setNewCall({ ...newCall, type: newTypes });
+              }} checked={newCall.type?.length ? newCall.type.find(typ => typ === 'Visita al local') ? true : false : false} />
+              <p>Visita al local</p>
+            </div>
           </div>
           <div className="flex flex-col gap-2">
             <p>Nombre de la llamada</p>
@@ -151,7 +180,7 @@ export const PopupNewCall: React.FC<Props> = ({ popupCall, setPopupCall, titleMe
               <option value='30 minutos'>30 minutos</option>
               <option value='40 minutos'>40 minutos</option>
               {
-                newCall.type === 'Visita'
+                newCall.type?.includes('Visita')
                   ? (
                     <>
                       <option value='45 minutos'>45 minutos</option>
