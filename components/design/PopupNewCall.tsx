@@ -87,7 +87,7 @@ export const PopupNewCall: React.FC<Props> = ({ popupCall, setPopupCall, titleMe
               setLoadingNewCall(false)
               return
             }
-            if (titleMeeting === 'Crear llamada') {
+            if (titleMeeting === 'Crear reunion') {
               if (newCall.nameMeeting !== '') {
                 await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/call`, newCall)
                 getCalls()
