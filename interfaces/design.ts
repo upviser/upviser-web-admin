@@ -8,6 +8,8 @@ export interface Design {
     categoryPage: ICategoryPage[]
     popup: IPopupWeb
     whatsapp: boolean
+    instagram: boolean
+    chatView: boolean
 }
 
 export interface IHeader {

@@ -101,6 +101,8 @@ export default function Page () {
   const [editSubPage, setEditSubPage] = useState(-1)
   const [loadingSubPage, setLoadingSubPage] = useState(false)
   const [chat, setChat] = useState({ bgColor: '' })
+  const [instagram, setInstagram] = useState(false)
+  const [chatView, setChatView] = useState(false)
 
   const getStoreData = async () => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/store-data`)
@@ -120,6 +122,8 @@ export default function Page () {
       setFooter(data.footer)
       setWhatsapp(data.whatsapp)
       setChat(data.chat)
+      setInstagram(data.instagram)
+      setChatView(data.chatView)
       if (data.popup) {
         setPopupWeb(data.popup)
       }
@@ -1152,6 +1156,40 @@ export default function Page () {
                             await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/design/${id}`, { whatsapp: true })
                             setWhatsapp(true)
                           }} className={`w-full bg-green-500 min-h-9 h-9 px-4 text-white text-sm rounded-xl transition-colors duration-300 hover:bg-green-500/80`}>Activar boton Whatsapp</button>
+                        )
+                    }
+                    {
+                      instagram
+                        ? (
+                          <button onClick={async(e: any) => {
+                            e.preventDefault()
+                            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/design/${id}`, { instagram: false })
+                            setInstagram(false)
+                          }} className={`w-full bg-red-500 min-h-9 h-9 px-4 text-white text-sm rounded-xl transition-colors duration-300 hover:bg-red-500/80`}>Desactivar boton Intagram</button>
+                        )
+                        : (
+                          <button onClick={async(e: any) => {
+                            e.preventDefault()
+                            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/design/${id}`, { instagram: true })
+                            setInstagram(true)
+                          }} className={`w-full bg-purple-600 min-h-9 h-9 px-4 text-white text-sm rounded-xl transition-colors duration-300 hover:bg-purple-600/80`}>Activar boton Instagram</button>
+                        )
+                    }
+                    {
+                      chatView
+                        ? (
+                          <button onClick={async(e: any) => {
+                            e.preventDefault()
+                            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/design/${id}`, { chatView: false })
+                            setChatView(false)
+                          }} className={`w-full bg-red-500 min-h-9 h-9 px-4 text-white text-sm rounded-xl transition-colors duration-300 hover:bg-red-500/80`}>Desactivar boton Chat</button>
+                        )
+                        : (
+                          <button onClick={async(e: any) => {
+                            e.preventDefault()
+                            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/design/${id}`, { chatView: true })
+                            setChatView(true)
+                          }} className={`w-full min-h-9 h-9 px-4 text-white text-sm rounded-xl transition-colors duration-300`} style={{ backgroundColor: style.primary }}>Activar boton Chat</button>
                         )
                     }
                     <ButtonSecondary2 action={(e: any) => {
