@@ -130,12 +130,12 @@ export const PopupNewUser: React.FC<Props> = ({ popup, setPopup, user, setUser, 
                   <div className="flex gap-1">
                     <input type="checkbox" onChange={(e: any) => {
                       const oldPermissions = [...user.permissions ? [...user.permissions] : []]
-                      const permissions = oldPermissions.includes('Llamadas')
-                        ? oldPermissions.filter(permission => permission !== 'Llamadas')
-                        : [...oldPermissions, 'Llamadas']
+                      const permissions = oldPermissions.includes('Reuniones')
+                        ? oldPermissions.filter(permission => permission !== 'Reuniones')
+                        : [...oldPermissions, 'Reuniones']
                       setUser({ ...user, permissions: permissions })
-                    }} checked={user.permissions?.find(permission => permission === 'Llamadas') ? true : false} />
-                    <p>Llamadas</p>
+                    }} checked={user.permissions?.find(permission => permission === 'Reuniones') ? true : false} />
+                    <p>Reuniones</p>
                   </div>
                   <div className="flex gap-1">
                     <input type="checkbox" onChange={(e: any) => {
