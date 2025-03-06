@@ -397,7 +397,8 @@ export const Blocks: React.FC<Props> = ({ edit, pages, setPages, design, index, 
                                     {
                                       calls?.map(call => <option key={call._id} value={call._id}>Abrir llamada {call.nameMeeting} como popup</option>)
                                     }
-                                    </select>
+                                    <option>Abrir Whatsapp</option>
+                                  </select>
                                   <Button2Red action={(e: any) => {
                                     const oldPages = [...pages]
                                     oldPages[ind].design[index].info.blocks?.splice(i, 1)

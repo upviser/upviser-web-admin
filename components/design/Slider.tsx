@@ -182,6 +182,7 @@ export const Slider: React.FC<Props> = ({ design, edit, pages, setPages, index, 
                                 {
                                   calls?.map(call => <option key={call._id} value={call._id}>Abrir llamada {call.nameMeeting} como popup</option>)
                                 }
+                                <option>Abrir Whatsapp</option>
                               </select>
                             </div>
                             <input type='file' className='m-auto text-white text-sm block w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-main/40 file:text-white hover:file:bg-main/20' onChange={async (e: any) => {

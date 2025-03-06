@@ -430,6 +430,7 @@ export const Bloque3: React.FC<Props> = ({ edit, design, index, pages, setPages,
                     {
                       calls?.map(call => <option key={call._id} value={call._id}>Abrir llamada {call.nameMeeting} como popup</option>)
                     }
+                    <option>Abrir Whatsapp</option>
                   </select>
                 </div>
                 <div className='flex gap-4 m-auto'>
