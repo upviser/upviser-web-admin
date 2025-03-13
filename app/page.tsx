@@ -1,4 +1,4 @@
-export default function page () {
+export default function Page () {
   return (
     <>
       <div className='p-4 lg:p-6 bg-bg w-full h-full flex flex-col gap-6 dark:bg-neutral-900' style={{ overflow: 'overlay' }}>

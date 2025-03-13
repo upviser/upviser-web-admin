@@ -105,59 +105,85 @@ export default function Page () {
                 : stadistics?.checkouts.length || stadistics?.clients.length || stadistics?.leads.length || stadistics?.pages.length || stadistics?.pays.length || stadistics?.sessions.length
                   ? (
                     <>
-                      <div className='grid grid-cols-4 gap-4 w-full max-w-[1280px] min-w-[800px]'>
-                        <div className='col-span-4 p-6 w-full flex flex-col gap-3 border border-black/5 bg-white rounded-xl dark:bg-neutral-800 dark:border-neutral-700 shadow-card dark:shadow-card-dark'>
-                          <p className='font-medium'>Tasa de conversion</p>
-                          <div className='grid grid-cols-5 divide-x divide-black/5 dark:divide-neutral-700'>
-                            <div className='flex flex-col gap-2 justify-between'>
-                              <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.length) / Number(stadistics.pages.length)) * 100) ? Math.round((Number(stadistics.pays.length) / Number(stadistics.pages.length)) * 100) : 0}%</p>
-                              <p className='mx-auto text-center'>Paginas visitadas</p>
-                            </div>
-                            <div className='flex flex-col gap-2 justify-between'>
-                              <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.length) / Number(stadistics.sessions.length)) * 100) ? Math.round((Number(stadistics.pays.length) / Number(stadistics.sessions.length)) * 100) : 0}%</p>
-                              <p className='mx-auto text-center'>Sesiones</p>
-                            </div>
-                            <div className='flex flex-col gap-2 justify-between'>
-                              <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.length) / Number(stadistics.leads.length)) * 100) ? Math.round((Number(stadistics.pays.length) / Number(stadistics.leads.length)) * 100) : 0}%</p>
-                              <p className='mx-auto text-center'>Registros completados</p>
-                            </div>
-                            <div className='flex flex-col gap-2 justify-between'>
-                              <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.length) / Number(stadistics.meetings.length)) * 100) ? Math.round((Number(stadistics.pays.length) / Number(stadistics.meetings.length)) * 100) : 0}%</p>
-                              <p className='mx-auto text-center'>Llamadas agendadas</p>
-                            </div>
-                            <div className='flex flex-col gap-2 justify-between'>
-                              <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.length) / Number(stadistics.checkouts.length)) * 100) ? Math.round((Number(stadistics.pays.length) / Number(stadistics.checkouts.length)) * 100) : 0}%</p>
-                              <p className='mx-auto text-center'>Checkout</p>
-                            </div>
+                      <div className='flex flex-col gap-4 w-full max-w-[1280px] min-w-[800px]'>
+                        {
+                          stadistics.pays.length
+                            ? (
+                              <div className='col-span-4 p-6 w-full h-fit flex flex-col gap-3 border border-black/5 bg-white rounded-xl dark:bg-neutral-800 dark:border-neutral-700 shadow-card dark:shadow-card-dark'>
+                                <p className='font-medium'>Tasa de conversion</p>
+                                <div className='grid grid-cols-5 divide-x divide-black/5 dark:divide-neutral-700'>
+                                  <div className='flex flex-col gap-2 justify-between'>
+                                    <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.length) / Number(stadistics.pages.length)) * 100) ? Math.round((Number(stadistics.pays.length) / Number(stadistics.pages.length)) * 100) : 0}%</p>
+                                    <p className='mx-auto text-center'>Paginas visitadas</p>
+                                  </div>
+                                  <div className='flex flex-col gap-2 justify-between'>
+                                    <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.length) / Number(stadistics.sessions.length)) * 100) ? Math.round((Number(stadistics.pays.length) / Number(stadistics.sessions.length)) * 100) : 0}%</p>
+                                    <p className='mx-auto text-center'>Sesiones</p>
+                                  </div>
+                                  <div className='flex flex-col gap-2 justify-between'>
+                                    <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.length) / Number(stadistics.leads.length)) * 100) ? Math.round((Number(stadistics.pays.length) / Number(stadistics.leads.length)) * 100) : 0}%</p>
+                                    <p className='mx-auto text-center'>Registros completados</p>
+                                  </div>
+                                  <div className='flex flex-col gap-2 justify-between'>
+                                    <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.length) / Number(stadistics.meetings.length)) * 100) ? Math.round((Number(stadistics.pays.length) / Number(stadistics.meetings.length)) * 100) : 0}%</p>
+                                    <p className='mx-auto text-center'>Llamadas agendadas</p>
+                                  </div>
+                                  <div className='flex flex-col gap-2 justify-between'>
+                                    <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.length) / Number(stadistics.checkouts.length)) * 100) ? Math.round((Number(stadistics.pays.length) / Number(stadistics.checkouts.length)) * 100) : 0}%</p>
+                                    <p className='mx-auto text-center'>Checkout</p>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                            : ''
+                        }
+                        <div className='grid grid-cols-4 gap-4'>
+                          {
+                            stadistics.pays.length
+                              ? (
+                                <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
+                                  <p className='font-medium'>Total vendido</p>
+                                  <p className='text-2xl font-medium m-auto'>${NumberFormat(Number(stadistics.pays.reduce((prev, curr) => prev + Number(curr.price), 0)))}</p>
+                                </div>
+                              )
+                              : ''
+                          }
+                          {
+                            stadistics.pays.length
+                              ? (
+                                <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
+                                  <p className='font-medium'>Ventas</p>
+                                  <p className='text-2xl font-medium m-auto'>{stadistics.pays.length}</p>
+                                </div>
+                              )
+                              : ''
+                          }
+                          {
+                            stadistics.checkouts.length
+                              ? (
+                                <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
+                                  <p className='font-medium'>Checkout</p>
+                                  <p className='text-2xl font-medium m-auto'>{stadistics.checkouts.length}</p>
+                                </div>
+                              )
+                              : ''
+                          }
+                          <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
+                            <p className='font-medium'>Llamadas agendadas</p>
+                            <p className='text-2xl font-medium m-auto'>{stadistics.meetings.length}</p>
                           </div>
-                        </div>
-                        <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
-                          <p className='font-medium'>Total vendido</p>
-                          <p className='text-2xl font-medium m-auto'>${NumberFormat(Number(stadistics.pays.reduce((prev, curr) => prev + Number(curr.price), 0)))}</p>
-                        </div>
-                        <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
-                          <p className='font-medium'>Ventas</p>
-                          <p className='text-2xl font-medium m-auto'>{stadistics.pays.length}</p>
-                        </div>
-                        <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
-                          <p className='font-medium'>Checkout</p>
-                          <p className='text-2xl font-medium m-auto'>{stadistics.checkouts.length}</p>
-                        </div>
-                        <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
-                          <p className='font-medium'>Llamadas agendadas</p>
-                          <p className='text-2xl font-medium m-auto'>{stadistics.meetings.length}</p>
-                        </div>
-                        <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
-                          <p className='font-medium'>Registros completados</p>
-                          <p className='text-2xl font-medium m-auto'>{stadistics.leads.length}</p>
-                        </div>
-                        <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
-                          <p className='font-medium'>Sesiones totales</p>
-                          <p className='text-2xl font-medium m-auto'>{stadistics.sessions.length}</p>
-                        </div>
-                        <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
-                          <p className='font-medium'>Paginas visitadas</p>
-                          <p className='text-2xl font-medium m-auto'>{stadistics.pages.length}</p>
+                          <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
+                            <p className='font-medium'>Registros completados</p>
+                            <p className='text-2xl font-medium m-auto'>{stadistics.leads.length}</p>
+                          </div>
+                          <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
+                            <p className='font-medium'>Sesiones totales</p>
+                            <p className='text-2xl font-medium m-auto'>{stadistics.sessions.length}</p>
+                          </div>
+                          <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
+                            <p className='font-medium'>Paginas visitadas</p>
+                            <p className='text-2xl font-medium m-auto'>{stadistics.pages.length}</p>
+                          </div>
                         </div>
                       </div>
                       {

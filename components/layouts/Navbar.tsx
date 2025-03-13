@@ -50,6 +50,7 @@ export const Navbar: React.FC<PropsWithChildren> = ({ children }) => {
     if (session === null) {
       router.push('/ingresar');
     } else if (session !== undefined) {
+      if (pathname === '/configuracion-usuario') return setLoading(false);
       const userPermissions = session.user.permissions || [];
 
       const permissionsRequired: { [key: string]: string } = {
