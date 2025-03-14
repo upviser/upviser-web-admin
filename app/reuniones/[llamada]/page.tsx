@@ -90,7 +90,7 @@ export default function Page ({ params }: { params: { llamada: string } }) {
                 </div>
                 <div className="p-6 rounded-xl border border-black/5 shadow-card w-full max-w-[1280px] mx-auto bg-white flex gap-16 dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700">
                   <div className="w-64 flex flex-col gap-4">
-                    <p>{(new Date(meeting?.date!)).getHours()}:00 - {(new Date(meeting?.date!)).getHours()}:15</p>
+                    <p>{(new Date(meeting?.date!)).getHours()}:{(new Date(meeting?.date!)).getMinutes().toString().padStart(2, '0')}</p>
                     <Button2Red action={async (e: any) => {
                       e.preventDefault()
                       setPopupCancel({ ...popupCancel, view: 'flex', opacity: 'opacity-0' })
