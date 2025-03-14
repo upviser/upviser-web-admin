@@ -237,7 +237,7 @@ export default function CallsPage () {
                     {
                       meetings.length
                         ? (
-                          <Table th={['Nombre', 'Email', 'Teléfono', 'Fecha', 'Hora', 'Reunion']}>
+                          <Table th={['Nombre', 'Email', 'Teléfono', 'Fecha', 'Hora', 'Reunión']}>
                             {
                               filteredMeetings
                                 ? filteredMeetings.map((meeting, index) => {
