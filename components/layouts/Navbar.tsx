@@ -237,7 +237,11 @@ export const Navbar: React.FC<PropsWithChildren> = ({ children }) => {
                         <Link href='/configuracion' className={`transition-all duration-150 ${pathname.includes('/configuracion') ? 'bg-main' : 'hover:bg-neutral-100 dark:hover:bg-main/30'} flex py-1.5 px-3 gap-2 rounded-xl`}><IoSettingsOutline className={`mt-auto mb-auto text-xl ${pathname.includes('/configuracion') ? 'text-white' : 'text-main'}`} /><p className={`${pathname.includes('/configuracion') ? 'text-white' : ''}`}>Configuración</p></Link>
                       </div>
                     )
-                    : ''
+                    : (
+                      <div className='border-t border-border pt-4 dark:border-neutral-800'>
+                        <Link href='/configuracion-usuario' className={`transition-all duration-150 ${pathname.includes('/configuracion-usuario') ? 'bg-main' : 'hover:bg-neutral-100 dark:hover:bg-main/30'} flex py-1.5 px-3 gap-2 rounded-xl`}><IoSettingsOutline className={`mt-auto mb-auto text-xl ${pathname.includes('/configuracion') ? 'text-white' : 'text-main'}`} /><p className={`${pathname.includes('/configuracion') ? 'text-white' : ''}`}>Configuración</p></Link>
+                      </div>
+                    )
                 }
               </div>
               <button onClick={() => setMenu('hidden')} className='h-full w-full bg-black/20' />

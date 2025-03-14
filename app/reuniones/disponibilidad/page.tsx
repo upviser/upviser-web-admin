@@ -136,7 +136,7 @@ export default function AvaliableCallsPage () {
           <Button type='submit' loading={loading} config="w-full">Crear calendario</Button>
         </form>
       </div>
-      <main className="flex flex-col gap-6 p-6 h-full bg-bg dark:bg-neutral-900">
+      <main className="flex flex-col gap-6 p-6 bg-bg overflow-y-auto dark:bg-neutral-900" style={{ height: 'calc(100% - 73px)' }}>
         <div className="flex flex-col gap-6 w-full mx-auto max-w-[1280px]">
           <div className="w-full flex flex-col gap-4">
             <div className="flex gap-4">
@@ -162,7 +162,7 @@ export default function AvaliableCallsPage () {
                 )
                 : <p>No hay calendarios creados</p>
             }
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-col lg:flex-row">
               <Button2 action={(e: any) => {
                 e.preventDefault()
                 setPopupNewCalendar({ ...popupNewCalendar, view: 'flex', opacity: 'opacity-0' })
@@ -190,7 +190,7 @@ export default function AvaliableCallsPage () {
           </div>
         </div>
       </main>
-      <div className='fixed flex bg-white border-t bottom-0 right-0 p-4 dark:bg-neutral-800 dark:border-neutral-700' style={{ width: 'calc(100% - 250px)' }}>
+      <div className='fixed flex bg-white border-t bottom-0 right-0 p-4 dark:bg-neutral-800 dark:border-neutral-700 w-full lg:w-[100%-250px]'>
         <div className='flex m-auto w-full max-w-[1280px]'>
           <div className='flex gap-2 ml-auto w-fit'>
             <ButtonSubmit action={handleSubmit} color="main" submitLoading={submitLoading} textButton="Modificar disponibilidad" config="w-52" />

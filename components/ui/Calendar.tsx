@@ -125,8 +125,8 @@ export const Calendar: React.FC<CalendarProps> = ({ availableDates, setAvailable
   };
 
   return (
-    <div className="w-full flex gap-6">
-      <div className='flex flex-col gap-6 w-1/2 h-fit'>
+    <div className="w-full flex gap-6 flex-col lg:flex-row">
+      <div className='flex flex-col gap-6 w-full lg:w-1/2 h-fit'>
         <div className="flex gap-6 items-center m-auto">
           <button onClick={() => handleChangeMonth(-1)} className="text-gray-600 hover:text-gray-800">&lt;</button>
           <h1 className="text-lg font-semibold">{date.toLocaleString('default', { month: 'long' })} {date.getFullYear()}</h1>
@@ -144,7 +144,7 @@ export const Calendar: React.FC<CalendarProps> = ({ availableDates, setAvailable
         </div>
       </div>
       {selectedDateTime && (
-        <div className='flex flex-col gap-2 w-1/2'>
+        <div className='flex flex-col gap-2 w-full lg:w-1/2'>
           <p className='text-lg font-semibold'>Elige la hora</p>
           <p>{selectedDateTime.getDate()} / {selectedDateTime.getMonth()}</p>
           <div className="grid grid-cols-4 gap-2">
