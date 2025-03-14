@@ -26,7 +26,7 @@ export const PopupCancelMeeting: React.FC<Props> = ({ popupCancel, setPopupCance
         }
       }} className={`${popupCancel.view} ${popupCancel.opacity} transition-opacity duration-200 fixed w-full h-full bg-black/20 flex top-0 left-0 z-50`}>
         <div onMouseEnter={() => setPopupCancel({ ...popupCancel, mouse: true })} onMouseLeave={() => setPopupCancel({ ...popupCancel, mouse: false })} className={`${popupCancel.opacity === 'opacity-1' ? 'scale-1' : 'scale-90'} transition-transform duration-200 w-full max-w-[500px] p-6 rounded-xl m-auto border border-border flex flex-col gap-4 bg-white dark:bg-neutral-800 dark:border-neutral-700`}>
-          <p className="font-medium">¿Estas seguro que desea cancelar la llamada?</p>
+          <p className="font-medium">¿Estas seguro que desea cancelar la reunión?</p>
           <div className="flex gap-6">
             <ButtonRedSubmit action={async (e: any) => {
               e.preventDefault()
