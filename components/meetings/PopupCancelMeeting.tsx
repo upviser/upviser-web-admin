@@ -33,7 +33,7 @@ export const PopupCancelMeeting: React.FC<Props> = ({ popupCancel, setPopupCance
               setLoadingDelete(true)
               await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/meeting/${meeting?._id}`)
               router.push('/llamadas')
-            }} submitLoading={loadingDelete} textButton='Cancelar llamada' config='w-40' />
+            }} submitLoading={loadingDelete} textButton='Cancelar reunión' config='w-40' />
             <button onClick={(e: any) => {
               e.preventDefault()
               setPopupCancel({ ...popupCancel, view: 'flex', opacity: 'opacity-0' })
