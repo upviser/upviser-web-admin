@@ -218,11 +218,6 @@ export const PopupNewUser: React.FC<Props> = ({ popup, setPopup, user, setUser, 
             if (!loadingUser) {
               setLoadingUser(true)
               setError('')
-              if (session?.user.plan === 'Avanzado' && users.length === 4) {
-                setError('Solo puedes tener 3 sub cuentas')
-                setLoadingUser(false)
-                return
-              }
               if (user?._id) {
                 await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/shop-login/${user?._id}`, user)
               } else {

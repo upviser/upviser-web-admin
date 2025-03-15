@@ -103,16 +103,6 @@ export default function AvaliableCallsPage () {
           if (!loading) {
             setLoading(true)
             setError('')
-            if (session?.user.plan === 'Individual' && calendars.length === 1) {
-              setError('Solo puedes tener un calendario')
-              setLoading(false)
-              return
-            }
-            if (session?.user.plan === 'Avanzado' && calendars.length === 4) {
-              setError('Solo puedes tener 4 calendarios')
-              setLoading(false)
-              return
-            }
             if (newCalendar.name !== '') {
               await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/calendar`, newCalendar)
               setPopupNewCalendar({ ...popupNewCalendar, view: 'flex', opacity: 'opacity-0' })
@@ -163,22 +153,30 @@ export default function AvaliableCallsPage () {
                 : <p>No hay calendarios creados</p>
             }
             <div className="flex gap-2 flex-col lg:flex-row">
-              <Button2 action={(e: any) => {
-                e.preventDefault()
-                setPopupNewCalendar({ ...popupNewCalendar, view: 'flex', opacity: 'opacity-0' })
-                setTimeout(() => {
-                  setPopupNewCalendar({ ...popupNewCalendar, view: 'flex', opacity: 'opacity-1' })
-                }, 10)
-              }}>Crear nuevo calendario</Button2>
               {
-                selectedCalendar
-                  ? <Button2Red action={(e: any) => {
-                    e.preventDefault()
-                    setPopupDeleteCalendar({ ...popupDeleteCalendar, view: 'flex', opacity: 'opacity-0' })
-                    setTimeout(() => {
-                      setPopupDeleteCalendar({ ...popupDeleteCalendar, view: 'flex', opacity: 'opacity-1' })
-                    }, 10)
-                  }}>Eliminar calendario</Button2Red>
+                session?.user.type === 'Administrador'
+                  ? (
+                    <>
+                      <Button2 action={(e: any) => {
+                        e.preventDefault()
+                        setPopupNewCalendar({ ...popupNewCalendar, view: 'flex', opacity: 'opacity-0' })
+                        setTimeout(() => {
+                          setPopupNewCalendar({ ...popupNewCalendar, view: 'flex', opacity: 'opacity-1' })
+                        }, 10)
+                      }}>Crear nuevo calendario</Button2>
+                      {
+                        selectedCalendar
+                          ? <Button2Red action={(e: any) => {
+                            e.preventDefault()
+                            setPopupDeleteCalendar({ ...popupDeleteCalendar, view: 'flex', opacity: 'opacity-0' })
+                            setTimeout(() => {
+                              setPopupDeleteCalendar({ ...popupDeleteCalendar, view: 'flex', opacity: 'opacity-1' })
+                            }, 10)
+                          }}>Eliminar calendario</Button2Red>
+                          : ''
+                      }
+                    </>
+                  )
                   : ''
               }
             </div>

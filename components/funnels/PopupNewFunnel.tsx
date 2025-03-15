@@ -51,11 +51,6 @@ export const PopupNewFunnel: React.FC<Props> = ({ popup, setPopup, getFunnels, n
           if (!loading) {
             setLoading(true)
             setError('')
-            if (session?.user.plan === 'Inicial' && funnels.length === 2) {
-              setError('Solo puedes tener 2 embudos')
-              setLoading(false)
-              return
-            }
             if (title === 'Nuevo embudo') {
               if (newFunnel.funnel !== '' && newFunnel.steps[0].step !== '' && newFunnel.steps[0].slug !== '') {
                 await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/funnel`, newFunnel)

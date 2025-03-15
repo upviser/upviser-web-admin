@@ -3,6 +3,7 @@ import { PopupDeleteFunnel, PopupNewFunnel, PopupStadistics } from "@/components
 import { Button, Button2, Button2Red, ButtonRed, ButtonSecondary, ButtonSecondary2, Select, Spinner } from "@/components/ui"
 import { IClient, IFunnel, IService } from "@/interfaces"
 import axios from "axios"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
@@ -20,6 +21,8 @@ export default function FunnelPage () {
   const [error, setError] = useState('')
   const [services, setServices] = useState<IService[]>([])
   const [popupStadistics, setPopupStadistics] = useState({ view: 'hidden', opacity: 'opacity-0', mouse: false })
+
+  const { data: session } = useSession()
 
   const getFunnels = async () => {
     setLoadingFunnels(true)
@@ -59,16 +62,22 @@ export default function FunnelPage () {
         <div className="w-full flex flex-col gap-6 mx-auto max-w-[1280px]">
           <div className="flex gap-4 justify-between">
             <h1 className="text-2xl font-medium my-auto">Embudos</h1>
-            <Button action={(e: any) => {
-              e.preventDefault()
-              setError('')
-              setNewFunnel({ funnel: '', description: '', steps: [{ step: '', slug: '' }] })
-              setTitle('Nuevo embudo')
-              setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
-              setTimeout(() => {
-                setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
-              }, 10)
-            }}>Nuevo embudo</Button>
+            {
+              session?.user.type === 'Administrador'
+                ? (
+                  <Button action={(e: any) => {
+                    e.preventDefault()
+                    setError('')
+                    setNewFunnel({ funnel: '', description: '', steps: [{ step: '', slug: '' }] })
+                    setTitle('Nuevo embudo')
+                    setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                    setTimeout(() => {
+                      setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                    }, 10)
+                  }}>Nuevo embudo</Button>
+                )
+                : ''
+            }
           </div>
           {
             loadingFunnels
@@ -98,16 +107,22 @@ export default function FunnelPage () {
                         selectFunnel
                           ? (
                             <>
-                              <Button2 action={(e: any) => {
-                                e.preventDefault()
-                                setError('')
-                                setNewFunnel(selectFunnel)
-                                setTitle(selectFunnel.funnel)
-                                setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
-                                setTimeout(() => {
-                                  setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
-                                }, 10)
-                              } }>Editar embudo</Button2>
+                              {
+                                session?.user.type === 'administrador'
+                                  ? (
+                                    <Button2 action={(e: any) => {
+                                      e.preventDefault()
+                                      setError('')
+                                      setNewFunnel(selectFunnel)
+                                      setTitle(selectFunnel.funnel)
+                                      setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                                      setTimeout(() => {
+                                        setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                                      }, 10)
+                                    } }>Editar embudo</Button2>
+                                  )
+                                  : ''
+                              }
                               <ButtonSecondary2 action={(e: any) => {
                                 e.preventDefault()
                                 setPopupStadistics({ ...popupStadistics, view: 'flex', opacity: 'opacity-0' })
@@ -115,13 +130,19 @@ export default function FunnelPage () {
                                   setPopupStadistics({ ...popupStadistics, view: 'flex', opacity: 'opacity-1' })
                                 }, 10)
                               }}>Estadisticas</ButtonSecondary2>
-                              <Button2Red action={(e: any) => {
-                                e.preventDefault()
-                                setPopupDelete({ ...popupDelete, view: 'flex', opacity: 'opacity-0' })
-                                setTimeout(() => {
-                                  setPopupDelete({ ...popupDelete, view: 'flex', opacity: 'opacity-1' })
-                                }, 10)
-                              }}>Eliminar embudo</Button2Red>
+                              {
+                                session?.user.type === 'Administrador'
+                                  ? (
+                                    <Button2Red action={(e: any) => {
+                                      e.preventDefault()
+                                      setPopupDelete({ ...popupDelete, view: 'flex', opacity: 'opacity-0' })
+                                      setTimeout(() => {
+                                        setPopupDelete({ ...popupDelete, view: 'flex', opacity: 'opacity-1' })
+                                      }, 10)
+                                    }}>Eliminar embudo</Button2Red>
+                                  )
+                                  : ''
+                              }
                             </>
                           )
                           : ''

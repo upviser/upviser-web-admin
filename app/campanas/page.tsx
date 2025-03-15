@@ -2,6 +2,7 @@
 import { ButtonLink, ButtonSubmit, Popup, Spinner, Spinner2, Table } from '@/components/ui'
 import { IEmail } from '@/interfaces'
 import axios from 'axios'
+import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -15,6 +16,8 @@ export default function Page () {
   const [campaignSelect, setCampaignSelect] = useState({ _id: '', campaign: '' })
   const [popup, setPopup] = useState({ view: 'hidden', opacity: 'opacity-0', mouse: false })
   const [loadingDelete, setLoadingDelete] = useState(false)
+
+  const { data: session } = useSession()
 
   const router = useRouter()
 
@@ -63,7 +66,11 @@ export default function Page () {
         <div className='p-4 lg:p-6 w-full flex flex-col gap-6 min-h-full overflow-y-auto bg-bg dark:bg-neutral-900'>
           <div className='flex justify-between w-full max-w-[1280px] mx-auto'>
             <h1 className='text-2xl font-medium my-auto'>Campañas</h1>
-            <ButtonLink href='/campanas/nueva-campana'>Crear campaña</ButtonLink>
+            {
+              session?.user.type === 'administrador'
+                ? <ButtonLink href='/campanas/nueva-campana'>Crear campaña</ButtonLink>
+                : ''
+            }
           </div>
           <div className='w-full max-w-[1280px] mx-auto'>
             {
@@ -91,14 +98,20 @@ export default function Page () {
                               <td className='p-3' onClick={() => router.push(`/campanas/${campaign._id}`)}>{campaign.affair}</td>
                               <td className='p-3' onClick={() => router.push(`/campanas/${campaign._id}`)}>{`${day}/${month}/${year}`}</td>
                               <td className='p-3' onClick={() => router.push(`/campanas/${campaign._id}`)}>{campaignDate < date ? 'Completado' : 'No completado'}</td>
-                              <td className='p-3' onClick={(e: any) => {
-                                e.preventDefault()
-                                setCampaignSelect({ _id: campaign._id!, campaign: campaign.title })
-                                setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
-                                setTimeout(() => {
-                                  setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
-                                }, 10)
-                              }}><AiOutlineClose /></td>
+                              {
+                                session?.user.type === 'Administrador'
+                                  ? (
+                                    <td className='p-3' onClick={(e: any) => {
+                                      e.preventDefault()
+                                      setCampaignSelect({ _id: campaign._id!, campaign: campaign.title })
+                                      setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                                      setTimeout(() => {
+                                        setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                                      }, 10)
+                                    }}><AiOutlineClose /></td>
+                                  )
+                                  : ''
+                              }
                             </tr>
                           )
                         })

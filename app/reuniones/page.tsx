@@ -3,6 +3,7 @@ import { PopupNewCall } from "@/components/design"
 import { Button, Button2, Button2Red, ButtonSecondary, ButtonSubmit, Select, Spinner, Table } from "@/components/ui"
 import { ICall, IFunnel, IMeeting, ITag } from "@/interfaces"
 import axios from "axios"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -27,6 +28,8 @@ export default function CallsPage () {
   const [calendars, setCalendars] = useState<any>([])
   const [selectCaledar, setSelectCaledar] = useState('')
   const [filterCalls, setFilterCalls] = useState<ICall[]>([])
+
+  const { data: session } = useSession()
 
   const router = useRouter()
 
@@ -122,15 +125,21 @@ export default function CallsPage () {
             <h1 className="text-2xl font-medium my-auto">Reuniones</h1>
             <div className="flex gap-4 flex-col lg:flex-row">
               <Link href="/reuniones/disponibilidad" className="my-auto text-sm"><ButtonSecondary action={undefined}>Modificar disponibilidad</ButtonSecondary></Link>
-              <Button action={(e: any) => {
-                e.preventDefault()
-                setTitle('Crear reunion')
-                setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', title: '', price: '', tags: [], labels: [{ data: '', text: '', type: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
-                setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
-                setTimeout(() => {
-                  setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-1' })
-                }, 10)
-              }}>Crear una nueva reunion</Button>
+              {
+                session?.user.type === 'Administrador'
+                  ? (
+                    <Button action={(e: any) => {
+                      e.preventDefault()
+                      setTitle('Crear reunion')
+                      setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', title: '', price: '', tags: [], labels: [{ data: '', text: '', type: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
+                      setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
+                      setTimeout(() => {
+                        setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-1' })
+                      }, 10)
+                    }}>Crear una nueva reunion</Button>
+                  )
+                  : ''
+              }
             </div>
           </div>
           {
@@ -201,29 +210,37 @@ export default function CallsPage () {
                                   callSelect !== ''
                                     ? (
                                       <>
-                                        <Button2 action={(e: any) => {
-                                          e.preventDefault()
-                                          const call = calls.find(call => call._id === callSelect)
-                                          if (call) {
-                                            setNewCall(call)
-                                          }
-                                          setTitle('Editar llamada')
-                                          setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
-                                          setTimeout(() => {
-                                            setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-1' })
-                                          }, 10)
-                                        }}>Editar reunion</Button2>
-                                        <Button2Red action={(e: any) => {
-                                          e.preventDefault()
-                                          const call = calls.find(call => call.nameMeeting === callSelect)
-                                          if (call) {
-                                            setNewCall(call)
-                                          }
-                                          setPopupDelete({ ...popupDelete, view: 'flex', opacity: 'opacity-0' })
-                                          setTimeout(() => {
-                                            setPopupDelete({ ...popupDelete, view: 'flex', opacity: 'opacity-1' })
-                                          }, 10)
-                                        }}>Eliminar reunion</Button2Red>
+                                        {
+                                          session?.user.type === 'Administrador'
+                                            ? (
+                                              <>
+                                                <Button2 action={(e: any) => {
+                                                  e.preventDefault()
+                                                  const call = calls.find(call => call._id === callSelect)
+                                                  if (call) {
+                                                    setNewCall(call)
+                                                  }
+                                                  setTitle('Editar llamada')
+                                                  setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
+                                                  setTimeout(() => {
+                                                    setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-1' })
+                                                  }, 10)
+                                                }}>Editar reunion</Button2>
+                                                <Button2Red action={(e: any) => {
+                                                  e.preventDefault()
+                                                  const call = calls.find(call => call.nameMeeting === callSelect)
+                                                  if (call) {
+                                                    setNewCall(call)
+                                                  }
+                                                  setPopupDelete({ ...popupDelete, view: 'flex', opacity: 'opacity-0' })
+                                                  setTimeout(() => {
+                                                    setPopupDelete({ ...popupDelete, view: 'flex', opacity: 'opacity-1' })
+                                                  }, 10)
+                                                }}>Eliminar reunion</Button2Red>
+                                              </>
+                                            )
+                                            : ''
+                                        }
                                       </>
                                     )
                                     : ''

@@ -3,6 +3,7 @@ import { PopupNewService } from "@/components/service"
 import { Button, ButtonSubmit, Spinner, Table } from "@/components/ui"
 import { IService, ITag } from "@/interfaces"
 import axios from "axios"
+import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { AiOutlineClose } from "react-icons/ai"
@@ -19,6 +20,8 @@ export default function Page() {
   const [popupDelete, setPopupDelete] = useState({ view: 'hidden', opacity: 'opacity-0', mouse: false })
   const [loadingDelete, setLoadingDelete] = useState(false)
   const [tags, setTags] = useState<ITag[]>([])
+
+  const { data: session } = useSession()
 
   const router = useRouter()
 
@@ -76,16 +79,22 @@ export default function Page() {
       <div className='p-4 lg:p-6 w-full min-h-full max-h-full flex flex-col gap-6 overflow-y-auto bg-bg dark:bg-neutral-900'>
         <div className='w-full flex gap-4 justify-between max-w-[1280px] mx-auto'>
           <h1 className='text-2xl font-medium my-auto'>Servicios</h1>
-          <Button action={(e: any) => {
-            e.preventDefault()
-            setError('')
-            setNewService({ name: '', description: '', steps: [{ step: '' }], typeService: '', typePrice: '', typePay: 'El precio incluye el IVA', plans: { functionalities: [''], plans: [{ name: '', price: '', functionalities: [{ name: '', value: '' }] }] }, tags: [] })
-            setTitle('Nuevo servicio')
-            setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
-            setTimeout(() => {
-              setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
-            }, 10)
-          }}>Nuevo servicio</Button>
+          {
+            session?.user.type === 'Administrador'
+              ? (
+                <Button action={(e: any) => {
+                  e.preventDefault()
+                  setError('')
+                  setNewService({ name: '', description: '', steps: [{ step: '' }], typeService: '', typePrice: '', typePay: 'El precio incluye el IVA', plans: { functionalities: [''], plans: [{ name: '', price: '', functionalities: [{ name: '', value: '' }] }] }, tags: [] })
+                  setTitle('Nuevo servicio')
+                  setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                  setTimeout(() => {
+                    setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                  }, 10)
+                }}>Nuevo servicio</Button>
+              )
+              : ''
+          }
         </div>
         <div className='w-full max-w-[1280px] mx-auto'>
           {
@@ -137,14 +146,20 @@ export default function Page() {
                             <p>{new Date(service.createdAt!).getDate()} / {new Date(service.createdAt!).getMonth() + 1} {new Date(service.createdAt!).getFullYear()} {new Date(service.createdAt!).getHours()}:{new Date(service.createdAt!).getMinutes()}</p>
                           </td>
                           <td className='p-3'>
-                            <button onClick={(e: any) => {
-                              e.preventDefault()
-                              setNewService(service)
-                              setPopupDelete({ ...popupDelete, view: 'flex', opacity: 'opacity-0' })
-                              setTimeout(() => {
-                                setPopupDelete({ ...popupDelete, view: 'flex', opacity: 'opacity-1' })
-                              }, 10)
-                            }}><AiOutlineClose /></button>
+                            {
+                              session?.user.type === 'Administrador'
+                                ? (
+                                  <button onClick={(e: any) => {
+                                    e.preventDefault()
+                                    setNewService(service)
+                                    setPopupDelete({ ...popupDelete, view: 'flex', opacity: 'opacity-0' })
+                                    setTimeout(() => {
+                                      setPopupDelete({ ...popupDelete, view: 'flex', opacity: 'opacity-1' })
+                                    }, 10)
+                                  }}><AiOutlineClose /></button>
+                                )
+                                : ''
+                            }
                           </td>
                         </tr>
                       ))

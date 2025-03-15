@@ -3,6 +3,7 @@ import { PopupNewService } from "@/components/service"
 import { Button, Button2, Button2Secondary, ButtonSecondary2, Select, Spinner } from "@/components/ui"
 import { IClient, IService, ITag } from "@/interfaces"
 import axios from "axios"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
@@ -21,6 +22,8 @@ export default function Page() {
   const [tags, setTags] = useState<ITag[]>([])
   const [selectClient, setSelectClient] = useState<IClient>()
   const [popupStadistics, setPopupStadistics] = useState({ view: 'hidden', opacity: 'opacity-0', mouse: false })
+
+  const { data: session } = useSession()
 
   const getServices = async () => {
     setLoading(true)
@@ -120,16 +123,22 @@ export default function Page() {
         <div className='p-4 lg:p-6 w-full flex flex-col gap-6 min-h-full max-h-full overflow-y-auto'>
           <div className='flex justify-between w-full max-w-[1280px] mx-auto'>
             <h1 className='text-2xl font-medium my-auto'>CRM</h1>
-            <Button action={(e: any) => {
-              e.preventDefault()
-              setError('')
-              setNewService({ name: '', description: '', typePay: 'El precio incluye el IVA', steps: [{ step: '' }], typeService: '', typePrice: '', plans: { functionalities: [''], plans: [{ name: '', price: '', functionalities: [{ name: '', value: '' }] }] } })
-              setTitle('Nuevo servicio')
-              setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
-              setTimeout(() => {
-                setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
-              }, 10)
-            }}>Crear nuevo servicio</Button>
+            {
+              session?.user.type === 'Administrador'
+                ? (
+                  <Button action={(e: any) => {
+                    e.preventDefault()
+                    setError('')
+                    setNewService({ name: '', description: '', typePay: 'El precio incluye el IVA', steps: [{ step: '' }], typeService: '', typePrice: '', plans: { functionalities: [''], plans: [{ name: '', price: '', functionalities: [{ name: '', value: '' }] }] } })
+                    setTitle('Nuevo servicio')
+                    setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                    setTimeout(() => {
+                      setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                    }, 10)
+                  }}>Crear nuevo servicio</Button>
+                )
+                : ''
+            }
           </div>
           <div className='w-full max-w-[1280px] mx-auto'>
             {
@@ -156,16 +165,22 @@ export default function Page() {
                           service
                             ? (
                               <>
-                                <Button2 action={(e: any) => {
-                                  e.preventDefault()
-                                  setError('')
-                                  setNewService(service)
-                                  setTitle('Editar servicio')
-                                  setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
-                                  setTimeout(() => {
-                                    setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
-                                  }, 10)
-                                } } config="my-auto">Editar servicio</Button2>
+                                {
+                                  session?.user.type === 'Administrador'
+                                    ? (
+                                      <Button2 action={(e: any) => {
+                                        e.preventDefault()
+                                        setError('')
+                                        setNewService(service)
+                                        setTitle('Editar servicio')
+                                        setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                                        setTimeout(() => {
+                                          setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                                        }, 10)
+                                      }} config="my-auto">Editar servicio</Button2>
+                                    )
+                                    : ''
+                                }
                                 <ButtonSecondary2 action={(e: any) => {
                                   e.preventDefault()
                                   setPopupStadistics({ ...popupStadistics, view: 'flex', opacity: 'opacity-0' })

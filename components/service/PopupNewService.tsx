@@ -57,11 +57,6 @@ export const PopupNewService: React.FC<Props> = ({ popupService, setPopupService
           e.preventDefault()
           if (!loadingService) {
             setLoadingService(true)
-            if (session?.user.plan === 'Emprendedor' && services.length === 2) {
-              setError('Solo puedes tener 2 servicios')
-              setLoadingService(false)
-              return
-            }
             if (title === 'Nuevo servicio') {
               await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/service`, newService)
             } else {
