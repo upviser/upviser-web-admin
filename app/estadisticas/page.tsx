@@ -126,7 +126,7 @@ export default function Page () {
                                   </div>
                                   <div className='flex flex-col gap-2 justify-between'>
                                     <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.length) / Number(stadistics.meetings.length)) * 100) ? Math.round((Number(stadistics.pays.length) / Number(stadistics.meetings.length)) * 100) : 0}%</p>
-                                    <p className='mx-auto text-center'>Llamadas agendadas</p>
+                                    <p className='mx-auto text-center'>Reuniones agendadas</p>
                                   </div>
                                   <div className='flex flex-col gap-2 justify-between'>
                                     <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.length) / Number(stadistics.checkouts.length)) * 100) ? Math.round((Number(stadistics.pays.length) / Number(stadistics.checkouts.length)) * 100) : 0}%</p>
@@ -169,7 +169,7 @@ export default function Page () {
                               : ''
                           }
                           <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
-                            <p className='font-medium'>Llamadas agendadas</p>
+                            <p className='font-medium'>Reuniones agendadas</p>
                             <p className='text-2xl font-medium m-auto'>{stadistics.meetings.length}</p>
                           </div>
                           <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
@@ -273,7 +273,7 @@ export default function Page () {
                                       </div>
                                       <div className='flex flex-col gap-2 justify-between'>
                                         <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.filter(pay => selectFunnel ? pay.funnel === selectFunnel : pay.funnel).length) / Number(stadistics.meetings.filter(meeting => selectFunnel ? meeting.funnel === selectFunnel : meeting.funnel).length)) * 100) ? Math.round((Number(stadistics.pays.filter(pay => selectFunnel ? pay.funnel === selectFunnel : pay.funnel).length) / Number(stadistics.meetings.filter(meeting => selectFunnel ? meeting.funnel === selectFunnel : meeting.funnel).length)) * 100) : 0}%</p>
-                                        <p className='mx-auto text-center'>Llamadas agendadas</p>
+                                        <p className='mx-auto text-center'>Reuniones agendadas</p>
                                       </div>
                                       <div className='flex flex-col gap-2 justify-between'>
                                         <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.filter(pay => selectFunnel ? pay.funnel === selectFunnel : pay.funnel).length) / Number(stadistics.checkouts.filter(checkout => selectFunnel ? checkout.funnel === selectFunnel : checkout.funnel).length)) * 100) ? Math.round((Number(stadistics.pays.filter(pay => selectFunnel ? pay.funnel === selectFunnel : pay.funnel).length) / Number(stadistics.checkouts.filter(checkout => selectFunnel ? checkout.funnel === selectFunnel : checkout.funnel).length)) * 100) : 0}%</p>
@@ -294,7 +294,7 @@ export default function Page () {
                                     <p className='text-2xl font-medium m-auto'>{stadistics.checkouts.filter(checkout => selectFunnel ? checkout.funnel === selectFunnel : checkout.funnel).length}</p>
                                   </div>
                                   <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
-                                    <p className='font-medium'>Llamadas agendadas</p>
+                                    <p className='font-medium'>Reuniones agendadas</p>
                                     <p className='text-2xl font-medium m-auto'>{stadistics.meetings.filter(meeting => selectFunnel ? meeting.funnel === selectFunnel : meeting.funnel).length}</p>
                                   </div>
                                   <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
@@ -401,7 +401,7 @@ export default function Page () {
                                       </div>
                                       <div className='flex flex-col gap-2 justify-between'>
                                         <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.filter(pay => selectService ? pay.service === selectService : pay.service).length) / Number(stadistics.meetings.filter(meeting => selectService ? meeting.service === selectService : meeting.service).length)) * 100) ? Math.round((Number(stadistics.pays.filter(pay => selectService ? pay.service === selectService : pay.service).length) / Number(stadistics.meetings.filter(meeting => selectService ? meeting.service === selectService : meeting.service).length)) * 100) : 0}%</p>
-                                        <p className='mx-auto text-center'>Llamadas agendadas</p>
+                                        <p className='mx-auto text-center'>Reuniones agendadas</p>
                                       </div>
                                       <div className='flex flex-col gap-2 justify-between'>
                                         <p className='text-2xl font-medium mx-auto'>{Math.round((Number(stadistics.pays.filter(pay => selectService ? pay.service === selectService : pay.service).length) / Number(stadistics.checkouts.filter(checkout => selectService ? checkout.service === selectService : checkout.service).length)) * 100) ? Math.round((Number(stadistics.pays.filter(pay => selectService ? pay.service === selectService : pay.service).length) / Number(stadistics.checkouts.filter(checkout => selectService ? checkout.service === selectService : checkout.service).length)) * 100) : 0}%</p>
@@ -422,7 +422,7 @@ export default function Page () {
                                     <p className='text-2xl font-medium m-auto'>{stadistics.checkouts.filter(checkout => selectService ? checkout.service === selectService : checkout.service).length}</p>
                                   </div>
                                   <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
-                                    <p className='font-medium'>Llamadas agendadas</p>
+                                    <p className='font-medium'>Reuniones agendadas</p>
                                     <p className='text-2xl font-medium m-auto'>{stadistics.meetings.filter(meeting => selectService ? meeting.service === selectService : meeting.service).length}</p>
                                   </div>
                                   <div className='p-6 col-span-1 h-[150px] flex flex-col gap-3 border border-black/5 bg-white rounded-xl shadow-card dark:shadow-card-dark dark:bg-neutral-800 dark:border-neutral-700'>
