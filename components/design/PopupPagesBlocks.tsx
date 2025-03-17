@@ -38,7 +38,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
             <div onClick={() => {
               if (indexPage !== -1) {
                 const oldPages = [...pages]
-                oldPages[indexPage].design.push({ content: 'Carrusel', info: { banner: [{ title: 'Lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.', button: 'Lorem ipsum', buttonLink: '', image: 'https://images-upvisor-web-cdn.b-cdn.net/Imagen%20prueba.jpg' }] } })
+                oldPages[indexPage].design.push({ content: 'Carrusel', info: { banner: [{ title: 'Lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.', button: 'Lorem ipsum', buttonLink: '', image: '' }] } })
                 setPages(oldPages)
                 setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
                 setTimeout(() => {
@@ -46,7 +46,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               } else if (indexFunnel !== -1 && indexStep !== -1) {
                 const oldFunnels = [...funnels!]
-                oldFunnels[indexFunnel].steps[indexStep].design?.push({ content: 'Carrusel', info: { banner: [{ title: 'Lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.', button: 'Lorem ipsum', buttonLink: '', image: 'https://images-upvisor-web-cdn.b-cdn.net/Imagen%20prueba.jpg' }] } })
+                oldFunnels[indexFunnel].steps[indexStep].design?.push({ content: 'Carrusel', info: { banner: [{ title: 'Lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.', button: 'Lorem ipsum', buttonLink: '', image: '' }] } })
                 setFunnels(oldFunnels)
                 setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
                 setTimeout(() => {
@@ -54,7 +54,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               } else if (indexService !== -1 && indexStepService !== -1) {
                 const oldServices = [...services!]
-                oldServices[indexService].steps[indexStepService].design?.push({ content: 'Carrusel', info: { banner: [{ title: 'Lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.', button: 'Lorem ipsum', buttonLink: '', image: 'https://images-upvisor-web-cdn.b-cdn.net/Imagen%20prueba.jpg' }] } })
+                oldServices[indexService].steps[indexStepService].design?.push({ content: 'Carrusel', info: { banner: [{ title: 'Lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.', button: 'Lorem ipsum', buttonLink: '', image: '' }] } })
                 setServices(oldServices)
                 setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
                 setTimeout(() => {
@@ -62,7 +62,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Slider.png' />
+              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='/Slider.png' />
               <p className="m-auto">Carrusel</p>
             </div>
             <div onClick={() => {
@@ -92,7 +92,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Bloque%201.png' />
+              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='/Bloque%201.png' />
               <p className="m-auto">Bloque 1</p>
             </div>
             <div onClick={() => {
@@ -122,7 +122,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Bloque%202.png' />
+              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='/Bloque%202.png' />
               <p className="m-auto">Bloque 2</p>
             </div>
             <div onClick={() => {
@@ -152,7 +152,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Bloque%203.png' />
+              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='/Bloque%203.png' />
               <p className="m-auto">Bloque 3</p>
             </div>
             <div onClick={() => {
@@ -182,7 +182,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Bloque%204.png' />
+              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='/Bloque%204.png' />
               <p className="m-auto">Bloque 4</p>
             </div>
             <div onClick={() => {
@@ -212,7 +212,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Bloque%205.png' />
+              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='/Bloque%205.png' />
               <p className="m-auto">Bloque 5</p>
             </div>
             <div onClick={() => {
@@ -242,7 +242,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Contacto.png' />
+              <Image className="border dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='/Contacto.png' />
               <p className="m-auto">Contacto</p>
             </div>
             <div onClick={() => {
@@ -272,7 +272,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border my-auto dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Suscripcio%CC%81n.png' />
+              <Image className="border my-auto dark:border-neutral-600" width={397} height={190} draggable='false' alt="Imagen Slider" src='/Suscripcio%CC%81n.png' />
               <p className="mx-auto">Suscripción</p>
             </div>
             <div onClick={() => {
@@ -302,7 +302,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Lead%201.png' />
+              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Lead%201.png' />
               <p className="m-auto">Lead 1</p>
             </div>
             <div onClick={() => {
@@ -332,7 +332,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Video.png' />
+              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Video.png' />
               <p className="m-auto">Video</p>
             </div>
             <div onClick={() => {
@@ -362,7 +362,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Agendar%20llamada.png' />
+              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Agendar%20llamada.png' />
               <p className="m-auto">Agendar llamada</p>
             </div>
             <div onClick={() => {
@@ -392,7 +392,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border m-auto dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Bloque%207.png' />
+              <Image className="border m-auto dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Bloque%207.png' />
               <p className="mx-auto">Bloque 7</p>
             </div>
             {
@@ -426,7 +426,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                       }, 200)
                     }
                   }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-                    <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Checkout.png' />
+                    <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Checkout.png' />
                     <p className="m-auto">Checkout</p>
                   </div>
                 )
@@ -458,7 +458,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Calls.png' />
+              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Calls.png' />
               <p className="m-auto">Llamadas</p>
             </div>
             <div onClick={() => {
@@ -488,7 +488,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Lead%202.png' />
+              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Lead%202.png' />
               <p className="m-auto">Lead 2</p>
             </div>
             <div onClick={() => {
@@ -518,7 +518,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Servicios.png' />
+              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Servicios.png' />
               <p className="m-auto">Servicios</p>
             </div>
             <div onClick={() => {
@@ -548,7 +548,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Planes.png' />
+              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Planes.png' />
               <p className="m-auto">Planes</p>
             </div>
             <div onClick={() => {
@@ -578,7 +578,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Preguntas%20frecuentes.png' />
+              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Preguntas%20frecuentes.png' />
               <p className="m-auto">Preguntas frecuentes</p>
             </div>
             <div onClick={() => {
@@ -608,7 +608,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Bloques.png' />
+              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Bloques.png' />
               <p className="m-auto">Bloques</p>
             </div>
             <div onClick={() => {
@@ -638,7 +638,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Resen%CC%83as.png' />
+              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Resen%CC%83as.png' />
               <p className="m-auto">Reseñas</p>
             </div>
             <div onClick={() => {
@@ -668,7 +668,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Formulario.png' />
+              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Formulario.png' />
               <p className="m-auto">Formulario</p>
             </div>
             <div onClick={() => {
@@ -698,7 +698,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Lead%203.png' />
+              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Lead%203.png' />
               <p className="m-auto">Lead 3</p>
             </div>
             <div onClick={() => {
@@ -728,7 +728,7 @@ export const PopupPagesBlocks: React.FC<Props> = ({ popup, setPopup, pages, inde
                 }, 200)
               }
             }} className={`w-[355px] border p-2 rounded flex flex-col gap-2 cursor-pointer transition-all duration-150 hover:border-main hover:shadow-md hover:shadow-main/30 dark:border-neutral-600 dark:hover:border-main`}>
-              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='https://upvisor-web-cdn.b-cdn.net/Tabla%20comparativa.png' />
+              <Image className="border dark:border-neutral-600" width={450} height={216} draggable='false' alt="Imagen Slider" src='/Tabla%20comparativa.png' />
               <p className="m-auto">Tabla comparativa</p>
             </div>
           </div>
