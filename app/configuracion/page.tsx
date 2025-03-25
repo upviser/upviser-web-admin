@@ -283,6 +283,10 @@ export default function Page () {
                   </div>
                 </div>
                 <div className='flex flex-col gap-2'>
+                  <p className='text-sm'>Link Google Maps</p>
+                  <Input name='mapsLink' value={storeData.mapsLink} change={inputChange} placeholder='Link Google Maps' />
+                </div>
+                <div className='flex flex-col gap-2'>
                   <p className='text-sm'>Horario de atención</p>
                   <div className='flex flex-col gap-2'>
                     <div className='flex gap-2 justify-between'>

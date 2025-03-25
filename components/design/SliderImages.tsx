@@ -3,9 +3,13 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { ICall, ICategoryPage, IDesign, IForm, IFunnel, IPage, IService } from '@/interfaces'
-import { Button, Input, Select, Spinner } from '../ui'
+import { Button, Button2, Input, Select, Spinner } from '../ui'
 import { ButtonDesign } from './ButtonDesign'
 import { ButtonDesign2 } from '.'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper/modules';
 
 interface Props {
     edit: any
@@ -28,7 +32,7 @@ interface Props {
     storeData?: any
 }
 
-export const Bloque3: React.FC<Props> = ({ edit, design, index, pages, setPages, ind, inde, indx, pageNeed, funnels, setFunnels, responsive, calls, forms, services, setServices, style, storeData }) => {
+export const SliderImages: React.FC<Props> = ({ edit, design, index, pages, setPages, ind, inde, indx, pageNeed, funnels, setFunnels, responsive, calls, forms, services, setServices, style, storeData }) => {
 
   const [gradient, setGradient] = useState('')
   const [firstColor, setFirstColor] = useState('')
@@ -42,7 +46,7 @@ export const Bloque3: React.FC<Props> = ({ edit, design, index, pages, setPages,
     <div className="w-full flex py-24 px-2" style={{ background: `${design.info.typeBackground === 'Degradado' ? design.info.background : design.info.typeBackground === 'Color' ? design.info.background : ''}` }}>
       <div className={`text-center m-auto max-w-[1280px] w-full flex flex-col gap-3`}>
         {
-          edit !== 'Bloque 3'
+          edit !== 'Carrusel de imagenes'
             ? (
               <>
                 {
@@ -74,29 +78,22 @@ export const Bloque3: React.FC<Props> = ({ edit, design, index, pages, setPages,
                   style={{ color: design.info.textColor }}
                   dangerouslySetInnerHTML={{ __html: design.info.description ? design.info.description : '' }}
                 />
-                {
-                  (design.info.button && design.info.button !== '' && design.info.buttonLink && design.info.buttonLink !== '') || (design.info.button2 && design.info.button2 !== '' && design.info.buttonLink2 && design.info.buttonLink2 !== '')
-                    ? (
-                      <div className='flex gap-4 w-fit m-auto'>
-                        {
-                          design.info.button && design.info.button !== '' && design.info.buttonLink && design.info.buttonLink !== ''
-                            ? <ButtonDesign style={style} text={design.info.button} config='m-auto' />
-                            : ''
-                        }
-                        {
-                          design.info.button2 && design.info.button2 !== '' && design.info.buttonLink2 && design.info.buttonLink2 !== ''
-                            ? <ButtonDesign2 style={style} text={design.info.button2} config='m-auto' design={design} />
-                            : ''
-                        }
-                      </div>
-                    )
-                    : ''
-                }
-                {
-                  design.info?.image && design.info.image !== ''
-                    ? <Image className='h-fit mx-auto' style={{ borderRadius: `${style.borderBlock}px`, border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '' }} width={480} height={300} alt='Imagen slider prueba' src={design.info.image} />
-                    : ''
-                }
+                <div>
+                <Swiper
+                  slidesPerView={3}
+                  spaceBetween={30}
+                  pagination={{
+                  clickable: true,
+                  }}
+                  modules={[Pagination]}
+                >
+                  {
+                    design.info.faq?.map((faq, indn) => (
+                      <SwiperSlide key={indn} className='w-96'><Image className='mb-8' src={faq.question!} alt={`Imagen ${indn + 1} de carrusel de imagenes`} width={500} height={500} style={{ boxShadow: style.design === 'Sombreado' ? `0px 3px 20px 3px ${style.borderColor}10` : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '', border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '' }} /></SwiperSlide>
+                    ))
+                  }
+                </Swiper>
+                </div>
               </>
             )
             : (
@@ -377,172 +374,93 @@ export const Bloque3: React.FC<Props> = ({ edit, design, index, pages, setPages,
                     setPages(oldPages)
                   }
                 }} className={`${responsive === '400px' ? 'text-base' : 'text-lg'} text-center p-1.5 rounded border bg-transparent`} style={{ color: design.info.textColor }} />
-                <div className='flex gap-4 m-auto'>
-                  <div className='w-fit text-white py-2 px-6' style={{ backgroundColor: style.primary, color: style.button, borderRadius: style.form === 'Redondeadas' ? `${style.borderButton}px` : '' }}>
-                    <input type='text' placeholder='Boton' value={design.info.button} onChange={(e: any) => {
-                      if (inde !== undefined) {
-                        const oldFunnels = [...funnels!]
-                        oldFunnels[inde].steps[ind].design![index].info.button = e.target.value
-                        setFunnels(oldFunnels)
-                      } else if (indx !== undefined) {
-                        const oldServices = [...services!]
-                        oldServices[indx].steps[ind].design![index].info.button = e.target.value
-                        setServices(oldServices)
-                      } else {
-                        const oldPages = [...pages]
-                        oldPages[ind].design[index].info.button = e.target.value
-                        setPages(oldPages)
-                      }
-                    }} className='text-sm lg:text-[16px] bg-transparent border border-neutral-500' />
-                  </div>
-                  <select value={design.info.buttonLink} onChange={(e: any) => {
-                    if (inde !== undefined) {
-                      const oldFunnels = [...funnels!]
-                      oldFunnels[inde].steps[ind].design![index].info.buttonLink = e.target.value
-                      setFunnels(oldFunnels)
-                    } else if (indx !== undefined) {
-                      const oldServices = [...services!]
-                      oldServices[indx].steps[ind].design![index].info.buttonLink = e.target.value
-                      setServices(oldServices)
-                    } else {
-                      const oldPages = [...pages]
-                      oldPages[ind].design[index].info.buttonLink = e.target.value
-                      setPages(oldPages)
-                    }
-                  }} className='rounded border w-full'>
-                    <option value=''>Acción boton</option>
-                    {
-                      pageNeed.map(page => (
-                        <option key={page.slug}>/{page.slug}</option>
-                      ))
-                    }
-                    {
-                      funnels?.map(funnel => {
-                        return funnel.steps.map(step => (
-                          <option key={step._id} value={step.slug}>{funnel.funnel} - {step.step}</option>
-                        ))
-                      })
-                    }
-                    <option>Abrir popup</option>
-                    {
-                      forms?.map(form => <option key={form._id} value={form._id}>Abrir formulario {form.nameForm} como popup</option>)
-                    }
-                    {
-                      calls?.map(call => <option key={call._id} value={call._id}>Abrir llamada {call.nameMeeting} como popup</option>)
-                    }
-                    <option>Abrir Whatsapp</option>
-                  </select>
-                </div>
-                <div className='flex gap-4 m-auto'>
-                  <div className='w-fit text-white py-2 px-6' style={{ backgroundColor: style.primary, color: style.button, borderRadius: style.form === 'Redondeadas' ? `${style.borderButton}px` : '' }}>
-                    <input type='text' placeholder='Boton' value={design.info.button2} onChange={(e: any) => {
-                      if (inde !== undefined) {
-                        const oldFunnels = [...funnels!]
-                        oldFunnels[inde].steps[ind].design![index].info.button2 = e.target.value
-                        setFunnels(oldFunnels)
-                      } else if (indx !== undefined) {
-                        const oldServices = [...services!]
-                        oldServices[indx].steps[ind].design![index].info.button2 = e.target.value
-                        setServices(oldServices)
-                      } else {
-                        const oldPages = [...pages]
-                        oldPages[ind].design[index].info.button2 = e.target.value
-                        setPages(oldPages)
-                      }
-                    }} className='text-sm lg:text-[16px] bg-transparent border border-neutral-500' />
-                  </div>
-                  <select value={design.info.buttonLink2} onChange={(e: any) => {
-                    if (inde !== undefined) {
-                      const oldFunnels = [...funnels!]
-                      oldFunnels[inde].steps[ind].design![index].info.buttonLink2 = e.target.value
-                      setFunnels(oldFunnels)
-                    } else if (indx !== undefined) {
-                      const oldServices = [...services!]
-                      oldServices[indx].steps[ind].design![index].info.buttonLink2 = e.target.value
-                      setServices(oldServices)
-                    } else {
-                      const oldPages = [...pages]
-                      oldPages[ind].design[index].info.buttonLink2 = e.target.value
-                      setPages(oldPages)
-                    }
-                  }} className='rounded border w-full'>
-                    <option value=''>Acción boton</option>
-                    {
-                      pageNeed.map(page => (
-                        <option key={page.slug}>/{page.slug}</option>
-                      ))
-                    }
-                    {
-                      funnels?.map(funnel => {
-                        return funnel.steps.map(step => (
-                          <option key={step._id} value={step.slug}>{funnel.funnel} - {step.step}</option>
-                        ))
-                      })
-                    }
-                    <option>Abrir popup</option>
-                    {
-                      forms?.map(form => <option key={form._id} value={form._id}>Abrir formulario {form.nameForm} como popup</option>)
-                    }
-                    {
-                      calls?.map(call => <option key={call._id} value={call._id}>Abrir llamada {call.nameMeeting} como popup</option>)
-                    }
-                  </select>
-                </div>
-                {
-                  design.info?.image && design.info.image !== ''
-                    ? <Image className='h-fit mx-auto' style={{ borderRadius: `${style.borderBlock}px`, border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '' }} width={480} height={300} alt='Imagen slider prueba' src={design.info.image} />
-                    : ''
-                }
-                {
-                  loading
-                    ? (
-                      <div className='flex w-full'>
-                        <div className='w-fit m-auto'>
-                          <Spinner />
-                        </div>
-                      </div>
-                    )
-                    : ''
-                }
-                {
-                  error !== ''
-                    ? <p className='bg-red-500 text-white px-2 py-1'>{error}</p>
-                    : ''
-                }
-                <input type='file' className='m-auto text-sm w-fit file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-main/10 file:text-main hover:file:bg-main/20' style={{ color: design.info.textColor }} onChange={async (e: any) => {
-                  if (!loading) {
-                    setLoading(true)
-                    setError('')
-                    const formData = new FormData();
-                    formData.append('image', e.target.files[0]);
-                    formData.append('name', e.target.files[0].name);
-                    try {
-                      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/image`, formData, {
-                        headers: {
-                          accept: 'application/json',
-                          'Accept-Language': 'en-US,en;q=0.8'
-                        }
-                      })
-                      if (inde !== undefined) {
-                        const oldFunnels = [...funnels!]
-                        oldFunnels[inde].steps[ind].design![index].info.image = data
-                        setFunnels(oldFunnels)
-                      } else if (indx !== undefined) {
-                        const oldServices = [...services!]
-                        oldServices[indx].steps[ind].design![index].info.image = data
-                        setServices(oldServices)
-                      } else {
-                        const oldPages = [...pages]
-                        oldPages[ind].design[index].info.image = data
-                        setPages(oldPages)
-                      }
-                      setLoading(false)
-                    } catch (error) {
-                      setLoading(false)
-                      setError('Ha ocurrido un error al subir la imagen, intentalo nuevamente.')
-                    }
+                <div>
+                <Swiper
+                  slidesPerView={3}
+                  spaceBetween={30}
+                  pagination={{
+                  clickable: true,
+                  }}
+                  modules={[Pagination]}
+                >
+                  {
+                    design.info.faq?.map((faq, indn) => (
+                      <SwiperSlide key={indn} className='w-96'>
+                        <Image src={faq.question!} alt={`Imagen ${indn + 1} de carrusel de imagenes`} width={500} height={500} style={{ boxShadow: style.design === 'Sombreado' ? `0px 3px 20px 3px ${style.borderColor}10` : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '', border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '' }} />
+                        <input type='file' className='m-auto text-sm w-fit file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-main/10 file:text-main hover:file:bg-main/20' style={{ color: design.info.textColor }} onChange={async (e: any) => {
+                          if (!loading) {
+                            setLoading(true)
+                            setError('')
+                            const formData = new FormData();
+                            formData.append('image', e.target.files[0]);
+                            formData.append('name', e.target.files[0].name);
+                            try {
+                            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/image`, formData, {
+                                headers: {
+                                accept: 'application/json',
+                                'Accept-Language': 'en-US,en;q=0.8'
+                                }
+                            })
+                            if (inde !== undefined) {
+                                const oldFunnels = [...funnels!]
+                                oldFunnels[inde].steps[ind].design![index].info.faq![indn].question = data
+                                setFunnels(oldFunnels)
+                            } else if (indx !== undefined) {
+                                const oldServices = [...services!]
+                                oldServices[indx].steps[ind].design![index].info.faq![indn].question = data
+                                setServices(oldServices)
+                            } else {
+                                const oldPages = [...pages]
+                                oldPages[ind].design[index].info.faq![indn].question = data
+                                setPages(oldPages)
+                            }
+                            setLoading(false)
+                            } catch (error) {
+                              setLoading(false)
+                              setError('Ha ocurrido un error al subir la imagen, intentalo nuevamente.')
+                            }
+                          }
+                        }} />
+                        <button className='mb-8' onClick={(e: any) => {
+                          e.preventDefault()
+                          const oldImages = design.info.faq!.filter((_, i) => i !== indn) // FILTRA la imagen en vez de usar splice
+                          if (inde !== undefined) {
+                            const oldFunnels = [...funnels!]
+                            oldFunnels[inde].steps[ind].design![index].info.faq = oldImages
+                            setFunnels([...oldFunnels]) // FORZAR UN NUEVO ARRAY PARA QUE REACT LO DETECTE
+                          } else if (indx !== undefined) {
+                            const oldServices = [...services!]
+                            oldServices[indx].steps[ind].design![index].info.faq = oldImages
+                            setServices([...oldServices])
+                          } else {
+                            const oldPages = [...pages]
+                            oldPages[ind].design[index].info.faq = oldImages
+                            setPages([...oldPages])
+                          }
+                        }}>X</button>
+                      </SwiperSlide>
+                    ))
                   }
-                }} />
+                </Swiper>
+                </div>
+                <Button2 action={(e: any) => {
+                  e.preventDefault()
+                  const oldImages = [...design.info.faq!]
+                  oldImages.push({ question: '' })
+                  if (inde !== undefined) {
+                    const oldFunnels = [...funnels!]
+                    oldFunnels[inde].steps[ind].design![index].info.faq = oldImages
+                    setFunnels(oldFunnels)
+                  } else if (indx !== undefined) {
+                    const oldServices = [...services!]
+                    oldServices[indx].steps[ind].design![index].info.faq = oldImages
+                    setServices(oldServices)
+                  } else {
+                    const oldPages = [...pages]
+                    oldPages[ind].design[index].info.faq = oldImages
+                    setPages(oldPages)
+                  }
+                }}>Agregar imagen</Button2>
               </>
             )
         }

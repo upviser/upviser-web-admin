@@ -131,7 +131,7 @@ export default function CallsPage () {
                     <Button action={(e: any) => {
                       e.preventDefault()
                       setTitle('Crear reunion')
-                      setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', title: '', price: '', tags: [], labels: [{ data: '', text: '', type: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
+                      setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', intervals: '', title: '', price: '', tags: [], labels: [{ data: '', text: '', type: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
                       setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
                       setTimeout(() => {
                         setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-1' })
@@ -188,12 +188,12 @@ export default function CallsPage () {
                               <div className="flex gap-4 flex-col lg:flex-row">
                                 <Select change={(e: any) => {
                                   if (e.target.value === 'Todas las reuniones') {
-                                    setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', title: '', price: '', tags: [], labels: [{ data: '', text: '', type: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
+                                    setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', intervals: '', title: '', price: '', tags: [], labels: [{ data: '', text: '', type: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
                                     const meetingsFiltered = meetings.filter(meeting => meeting.calendar === selectCaledar)
                                     setFilteredMeetings(meetingsFiltered)
                                     setCallSelect('')
                                   } else {
-                                    setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', title: '', price: '', tags: [], labels: [{ data: '', text: '', type: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
+                                    setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', intervals: '', title: '', price: '', tags: [], labels: [{ data: '', text: '', type: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
                                     const filterMeetings = meetings?.filter(meeting => meeting.meeting === e.target.value)
                                     setFilteredMeetings(filterMeetings)
                                     setCallSelect(e.target.value)

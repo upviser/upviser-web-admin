@@ -4,6 +4,7 @@ export interface ICall {
     nameMeeting: string
     title?: string
     duration: string
+    intervals?: string
     description?: string
     price?: string
     labels?: { type: string, text: string, data?: string, datas?: string[] }[]

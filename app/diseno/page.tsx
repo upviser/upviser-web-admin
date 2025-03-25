@@ -6,7 +6,7 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { BiArrowBack } from 'react-icons/bi'
 import Image from 'next/image'
-import { Bloque1, Bloque2, Bloque3, Bloque4, Bloque5, Call, Contact, Layout, Lead1, PopupNewCall, PopupNewForm, PopupNewPage, PopupPagesBlocks, Slider, Subscription, Video, PopupDeleteFunnel, PopupDeletePage, Bloque7, Checkout, Calls, Lead2, Services, Plans, Faq, Blocks, Reviews, Form, Lead3, Table } from '@/components/design'
+import { Bloque1, Bloque2, Bloque3, Bloque4, Bloque5, Call, Contact, Layout, Lead1, PopupNewCall, PopupNewForm, PopupNewPage, PopupPagesBlocks, Slider, Subscription, Video, PopupDeleteFunnel, PopupDeletePage, Bloque7, Checkout, Calls, Lead2, Services, Plans, Faq, Blocks, Reviews, Form, Lead3, Table, SliderImages } from '@/components/design'
 import { Button, Button2, Button2Red, ButtonSecondary2, ButtonSubmit, Input, Select, Spinner, Textarea } from '@/components/ui'
 import { SlArrowDown, SlArrowUp } from 'react-icons/sl'
 import { PopupNewFunnel } from '@/components/funnels'
@@ -638,7 +638,7 @@ export default function Page () {
                       <Button2 action={(e: any) => {
                         e.preventDefault()
                         setError('')
-                        setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', description: '', title: '', labels: [{ type: '', data: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '' })
+                        setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', intervals: '', description: '', title: '', labels: [{ type: '', data: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '' })
                         setTitleMeeting('Crear llamada')
                         setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
                         setTimeout(() => {
@@ -1405,7 +1405,7 @@ export default function Page () {
                     <Button2 action={(e: any) => {
                       e.preventDefault()
                       setError('')
-                      setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', description: '', title: '', labels: [{ type: '', data: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '' })
+                      setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', intervals: '', description: '', title: '', labels: [{ type: '', data: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '' })
                       setTitleMeeting('Crear llamada')
                       setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
                       setTimeout(() => {
@@ -1812,7 +1812,9 @@ export default function Page () {
                                                                             ? <Form edit={edit} pages={pages} setPages={setPages} design={design} index={index} ind={i} responsive={responsive} pageNeed={pages} forms={forms} popupForm={popupForm} setNewForm={setNewForm} setPopupForm={setPopupForm} setTitleForm={setTitleForm} style={style} />
                                                                             : design.content === 'Lead 3'
                                                                               ? <Lead3 edit={edit} pages={pages} setPages={setPages} design={design} index={index} ind={i} forms={forms} popupForm={popupForm} setPopupForm={setPopupForm} setTitleForm={setTitleForm} setNewForm={setNewForm} responsive={responsive} storeData={storeData} style={style} pageNeed={pages} />
-                                                                              : ''
+                                                                              : design.content === 'Carrusel de imagenes'
+                                                                                ? <SliderImages edit={edit} design={design} index={index} pages={pages} setPages={setPages} ind={i} pageNeed={pages} responsive={responsive} calls={calls} forms={forms} style={style} storeData={storeData} />
+                                                                                : ''
                                 }
                                 <div className='m-auto mt-2 mb-6 flex gap-4 w-fit'>
                                   <p className='my-auto font-medium'>{design.content}</p>

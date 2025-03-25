@@ -42,7 +42,7 @@ export interface IInfoFunnel {
     typeBackground?: string
     background?: string
     textColor?: string
-    faq?: [{ question?: string, response?: string }]
+    faq?: { question?: string, response?: string }[]
     blocks?: [{ title?: string, description?: string, buttonText?: string, buttonLink?: string }]
     reviews?: [{ review?: string, stars?: string, name?: string }]
     form?: { type: string, text:  string, name: string, data: string, datas?: string[] }[]

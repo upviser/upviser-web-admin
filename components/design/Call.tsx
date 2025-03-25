@@ -411,7 +411,7 @@ export const Call: React.FC<Props> = ({ edit, pages, setPages, design, index, in
                           e.preventDefault()
                           setLoading(true)
                           setError('')
-                          setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', description: '', title: '', labels: [{ data: '', name: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '', calendar: '' })
+                          setNewCall({ type: '', nameMeeting: '', duration: '15 minutos', intervals: '', description: '', title: '', labels: [{ data: '', name: '', text: '' }], buttonText: '', action: 'Mostrar mensaje', message: '', calendar: '' })
                           setTitleMeeting('Crear reunion')
                           setPopupCall({ ...popupCall, view: 'flex', opacity: 'opacity-0' })
                           setTimeout(() => {

@@ -199,6 +199,26 @@ export const PopupNewCall: React.FC<Props> = ({ popupCall, setPopupCall, titleMe
             </Select>
           </div>
           <div className="flex flex-col gap-2">
+            <p>Tiempo reservado por hora</p>
+            <Select change={(e: any) => setNewCall({ ...newCall, intervals: e.target.value })} value={newCall.intervals}>
+              <option value=''>Igual que la duración de la hora</option>
+              <option value='15 minutos'>15 minutos</option>
+              <option value='20 minutos'>20 minutos</option>
+              <option value='25 minutos'>25 minutos</option>
+              <option value='30 minutos'>30 minutos</option>
+              <option value='40 minutos'>40 minutos</option>
+              <option value='45 minutos'>45 minutos</option>
+              <option value='50 minutos'>50 minutos</option>
+              <option value='60 minutos'>60 minutos</option>
+              <option value='70 minutos'>70 minutos</option>
+              <option value='80 minutos'>80 minutos</option>
+              <option value='90 minutos'>90 minutos</option>
+              <option value='100 minutos'>100 minutos</option>
+              <option value='110 minutos'>110 minutos</option>
+              <option value='120 minutos'>120 minutos</option>
+            </Select>
+          </div>
+          <div className="flex flex-col gap-2">
             <p>Descripción</p>
             <Textarea change={(e: any) => setNewCall({ ...newCall, description: e.target.value })} placeholder='Descripción' value={newCall.description!} />
           </div>
