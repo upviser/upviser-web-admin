@@ -490,7 +490,11 @@ export const Blocks: React.FC<Props> = ({ edit, pages, setPages, design, index, 
                           design.info.blocks?.map((block, i) => (
                             <div key={i} className={`flex flex-col gap-4 p-6 w-full max-w-96`} style={{ boxShadow: style.design === 'Sombreado' ? `0px 3px 20px 3px ${style.borderColor}10` : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '', border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '', backgroundColor: design.info.image }}>
                               <div className='flex flex-col gap-4 m-auto'>
-                                <Image src={block.image && block.image !== '' ? block.image : ''} alt={`Imagen del bloque de ${block.title}`} width={500} height={400} style={{ boxShadow: style.design === 'Sombreado' ? `0px 3px 20px 3px ${style.borderColor}10` : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '', border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '' }} />
+                                {
+                                  block.image && block.image !== ''
+                                    ? <Image src={block.image && block.image !== '' ? block.image : ''} alt={`Imagen del bloque de ${block.title}`} width={500} height={400} style={{ boxShadow: style.design === 'Sombreado' ? `0px 3px 20px 3px ${style.borderColor}10` : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '', border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '' }} />
+                                    : ''
+                                }
                                 {
                                   index === 0
                                     ? (
