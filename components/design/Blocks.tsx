@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { Select, Spinner, Button2Red, Button2, Input } from '../ui'
 import { ButtonDesign } from './'
+import Image from 'next/image'
 
 interface Props {
     edit: any
@@ -312,6 +313,11 @@ export const Blocks: React.FC<Props> = ({ edit, pages, setPages, design, index, 
                         {
                             design.info.blocks?.map((block, i) => (
                                 <div key={i} className={`flex flex-col gap-4 p-6 w-full max-w-96`} style={{ boxShadow: style.design === 'Sombreado' ? `0px 3px 20px 3px ${style.borderColor}10` : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '', border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '', backgroundColor: design.info.image }}>
+                                  {
+                                    block.image && block.image !== ''
+                                      ? <Image src={block.image} alt={`Imagen del bloque de ${block.title}`} width={500} height={400} style={{ boxShadow: style.design === 'Sombreado' ? `0px 3px 20px 3px ${style.borderColor}10` : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '', border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '' }} />
+                                      : ''
+                                  }
                                   <input onChange={(e: any) => {
                                     if (inde !== undefined) {
                                       const oldFunnels = [...funnels!]
@@ -399,6 +405,30 @@ export const Blocks: React.FC<Props> = ({ edit, pages, setPages, design, index, 
                                     }
                                     <option>Abrir Whatsapp</option>
                                   </select>
+                                  <input type='file' className='m-auto text-sm block w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-main/60 hover:file:bg-main/40 file:text-white' onChange={async (e: any) => {
+                                    const formData = new FormData();
+                                    formData.append('image', e.target.files[0]);
+                                    formData.append('name', e.target.files[0].name);
+                                    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/image`, formData, {
+                                      headers: {
+                                        accept: 'application/json',
+                                        'Accept-Language': 'en-US,en;q=0.8'
+                                      }
+                                    })
+                                    if (inde !== undefined) {
+                                      const oldFunnels = [...funnels!]
+                                      oldFunnels[inde].steps[ind].design![index].info.blocks![i].image = data
+                                      setFunnels(oldFunnels)
+                                    } else if (indx !== undefined) {
+                                      const oldServices = [...services!]
+                                      oldServices[indx].steps[ind].design![index].info.blocks![i].image = data
+                                      setServices(oldServices)
+                                    } else {
+                                      const oldPages = [...pages]
+                                      oldPages[ind].design[index].info.blocks![i].image = data
+                                      setPages(oldPages)
+                                    }
+                                  }} />
                                   <Button2Red action={(e: any) => {
                                     const oldPages = [...pages]
                                     oldPages[ind].design[index].info.blocks?.splice(i, 1)
@@ -460,6 +490,7 @@ export const Blocks: React.FC<Props> = ({ edit, pages, setPages, design, index, 
                           design.info.blocks?.map((block, i) => (
                             <div key={i} className={`flex flex-col gap-4 p-6 w-full max-w-96`} style={{ boxShadow: style.design === 'Sombreado' ? `0px 3px 20px 3px ${style.borderColor}10` : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '', border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '', backgroundColor: design.info.image }}>
                               <div className='flex flex-col gap-4 m-auto'>
+                                <Image src={block.image && block.image !== '' ? block.image : ''} alt={`Imagen del bloque de ${block.title}`} width={500} height={400} style={{ boxShadow: style.design === 'Sombreado' ? `0px 3px 20px 3px ${style.borderColor}10` : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '', border: style.design === 'Borde' ? `1px solid ${style.borderColor}` : '' }} />
                                 {
                                   index === 0
                                     ? (

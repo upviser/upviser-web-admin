@@ -25,7 +25,7 @@ export default function Page () {
       slug: '',
       header: true,
       design: [
-        { content: 'Carrusel', info: { banner: [{ title: 'Lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.', button: 'Lorem ipsum', buttonLink: '', image: 'https://upvisor-web.b-cdn.net/Imagen%20prueba.jpg' }] } },
+        { content: 'Carrusel', info: { banner: [{ title: 'Lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.', button: 'Lorem ipsum', buttonLink: '', image: '' }] } },
         { content: 'Suscripción', info: { title: 'Suscribete a nuestra lista' } }
       ]
     },

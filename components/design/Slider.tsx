@@ -54,16 +54,16 @@ export const Slider: React.FC<Props> = ({ design, edit, pages, setPages, index, 
                           <div className="m-auto w-full p-4">
                             <div className='max-w-[1280px] w-full m-auto flex flex-col gap-3'>
                               <h1
-                                className={`${responsive === '400px' ? 'text-4xl' : 'text-5xl'} transition-opacity duration-200 text-white font-semibold`}
+                                className={`${responsive === '400px' ? 'text-4xl' : 'text-5xl'} ${banner.type === 'Izquierda' ? '' : 'text-center'} transition-opacity duration-200 text-white font-semibold`}
                                 dangerouslySetInnerHTML={{ __html: banner.title ? banner.title  : '' }}
                               />
                               <p
-                                className={`${responsive === '400px' ? 'text-base' : 'text-lg'} transition-opacity duration-200 text-white`}
+                                className={`${responsive === '400px' ? 'text-base' : 'text-lg'} ${banner.type === 'Izquierda' ? '' : 'text-center'} transition-opacity duration-200 text-white`}
                                 dangerouslySetInnerHTML={{ __html: banner.description ? banner.description : '' }}
                               />
                               {
                                 banner.button && banner.button !== '' && banner.buttonLink && banner.buttonLink !== ''
-                                  ? <ButtonDesign style={style} text={banner.button} /> 
+                                  ? <ButtonDesign style={style} text={banner.button} config={`${banner.type === 'Izquierda' ? '' : 'm-auto'}`} /> 
                                   : ''
                               }
                             </div>
@@ -95,7 +95,7 @@ export const Slider: React.FC<Props> = ({ design, edit, pages, setPages, index, 
                                   setPages(oldPages)
                                 }
                               }
-                            }} className={`${responsive === '400px' ? 'text-3xl' : 'text-5xl'} text-white font-semibold p-1.5 rounded border bg-transparent`} style={{ color: design.info.textColor }} />
+                            }} className={`${responsive === '400px' ? 'text-3xl' : 'text-5xl'} ${banner.type === 'Izquierda' ? '' : 'text-center'} text-white font-semibold p-1.5 rounded border bg-transparent`} style={{ color: design.info.textColor }} />
                             <textarea placeholder='Descripción' value={banner.description} onChange={(e: any) => {
                               if (inde !== undefined) {
                                 const oldFunnels = [...funnels!]
@@ -116,9 +116,9 @@ export const Slider: React.FC<Props> = ({ design, edit, pages, setPages, index, 
                                   setPages(oldPages)
                                 }
                               }
-                            }} className={`${responsive === '400px' ? 'text-base' : 'text-lg'} text-white p-1.5 rounded border bg-transparent`} style={{ color: design.info.textColor }} />
-                            <div className='flex gap-4'>
-                              <div className='px-6 py-2 text-white' style={{ backgroundColor: style?.primary, color: style?.button, borderRadius: style?.form === 'Redondeadas' ? `${style?.borderButton}px` : '' }}>
+                            }} className={`${responsive === '400px' ? 'text-base' : 'text-lg'} ${banner.type === 'Izquierda' ? '' : 'text-center'} text-white p-1.5 rounded border bg-transparent`} style={{ color: design.info.textColor }} />
+                            <div className={`flex gap-4 ${banner.type === 'Izquierda' ? '' : 'm-auto'}`}>
+                              <div className={`px-6 py-2 text-white`} style={{ backgroundColor: style?.primary, color: style?.button, borderRadius: style?.form === 'Redondeadas' ? `${style?.borderButton}px` : '' }}>
                                 <input type='text' placeholder='Boton' className='text-white border border-neutral-500 bg-transparent' value={banner.button} onChange={(e: any) => {
                                   if (inde !== undefined) {
                                     const oldFunnels = [...funnels!]
@@ -215,6 +215,32 @@ export const Slider: React.FC<Props> = ({ design, edit, pages, setPages, index, 
                                 }
                               }
                             }} />
+                            <div className='flex flex-col gap-2'>
+                              <select onChange={(e: any) => {
+                                if (inde !== undefined) {
+                                  const oldFunnels = [...funnels!]
+                                  if (oldFunnels[inde].steps[ind].design![index].info.banner?.length) {
+                                    oldFunnels[inde].steps[ind].design![index].info.banner![i].type = e.target.value
+                                    setFunnels(oldFunnels)
+                                  }
+                                } else if (indx !== undefined) {
+                                  const oldServices = [...services!]
+                                  if (oldServices[indx].steps[ind].design![index].info.banner?.length) {
+                                    oldServices[indx].steps[ind].design![index].info.banner![i].type = e.target.value
+                                    setServices(oldServices)
+                                  }
+                                } else {
+                                  const oldPages = [...pages]
+                                  if (oldPages[ind].design[index].info.banner?.length) {
+                                    oldPages[ind].design[index].info.banner![i].type = e.target.value
+                                    setPages(oldPages)
+                                  }
+                                }
+                              }} className='w-fit py-1.5' value={banner.type}>
+                                <option>Izquierda</option>
+                                <option>Centro</option>
+                              </select>
+                            </div>
                             <Button2 action={() => {
                                 if (inde !== undefined) {
                                   const oldFunnels = [...funnels!]
