@@ -74,6 +74,7 @@ export const Calendar: React.FC<CalendarProps> = ({ availableDates, setAvailable
   const handleChangeMonth = (increment: number): void => {
     setDate(prevDate => {
       const newDate = new Date(prevDate);
+      newDate.setDate(1)
       newDate.setMonth(prevDate.getMonth() + increment);
       return newDate;
     });
