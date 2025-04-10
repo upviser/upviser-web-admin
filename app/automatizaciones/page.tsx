@@ -66,7 +66,7 @@ export default function Page () {
           <div className='flex justify-between w-full max-w-[1280px] mx-auto flex-col gap-2 lg:flex-row'>
             <h1 className='text-2xl font-medium my-auto'>Automatizaciones</h1>
             {
-              session?.user.type === 'administrador'
+              session?.user.type === 'Administrador'
                 ? <ButtonLink href='/automatizaciones/nueva-automatizacion' >Crear automatización</ButtonLink>
                 : ''
             }

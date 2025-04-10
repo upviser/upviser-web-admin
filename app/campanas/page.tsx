@@ -67,7 +67,7 @@ export default function Page () {
           <div className='flex justify-between w-full max-w-[1280px] mx-auto'>
             <h1 className='text-2xl font-medium my-auto'>Campañas</h1>
             {
-              session?.user.type === 'administrador'
+              session?.user.type === 'Administrador'
                 ? <ButtonLink href='/campanas/nueva-campana'>Crear campaña</ButtonLink>
                 : ''
             }

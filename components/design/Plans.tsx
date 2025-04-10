@@ -428,7 +428,27 @@ export const Plans: React.FC<Props> = ({ edit, pages, setPages, design, index, i
                           {
                             design.info.form?.map((label, i) => (
                               <>
-                                <p>Dato {i + 1}</p>
+                                <div className='flex gap-2 justify-between'>
+                                  <p>Dato {i + 1}</p>
+                                  <button onClick={(e: any) => {
+                                    e.preventDefault()
+                                    const oldForm = [...design.info.form!]
+                                    oldForm.splice(i, 1)
+                                    if (inde !== undefined) {
+                                      const oldFunnels = [...funnels!]
+                                      oldFunnels[inde].steps[ind].design![index].info.form = oldForm
+                                      setFunnels(oldFunnels)
+                                    } else if (indx !== undefined) {
+                                      const oldServices = [...services!]
+                                      oldServices[indx].steps[ind].design![index].info.form = oldForm
+                                      setServices(oldServices)
+                                    } else {
+                                      const oldPages = [...pages]
+                                      oldPages[ind].design[index].info.form = oldForm
+                                      setPages(oldPages)
+                                    }
+                                  }}><IoMdClose className='text-xl' /></button>
+                                </div>
                                 <Input change={(e: any) => {
                                   if (inde !== undefined) {
                                     const oldFunnels = [...funnels!]
