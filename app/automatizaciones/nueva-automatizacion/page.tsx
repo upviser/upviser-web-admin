@@ -121,6 +121,7 @@ export default function Page () {
       setError('')
       if (automatization.name === '') {
         setError('Debes ponerle un nombre a la automatización')
+        setLoading(false)
         return
       }
       setLoading(true)
