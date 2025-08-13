@@ -219,7 +219,7 @@ export const PopupNewUser: React.FC<Props> = ({ popup, setPopup, user, setUser, 
               setLoadingUser(true)
               setError('')
               if (user?._id) {
-                await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/shop-login/${user?._id}`, user)
+                await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/shop-login`, user)
               } else {
                 await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/shop-login`, user)
               }
