@@ -26,7 +26,7 @@ export default function CallsPage () {
   const [loadingNewData, setLoadingNewData] = useState(false)
   const [clientData, setClientData] = useState([])
   const [calendars, setCalendars] = useState<any>([])
-  const [selectCaledar, setSelectCaledar] = useState('')
+  const [selectCalendar, setSelectCalendar] = useState('')
   const [filterCalls, setFilterCalls] = useState<ICall[]>([])
 
   const { data: session } = useSession()
@@ -39,6 +39,18 @@ export default function CallsPage () {
     setMeetings(res.data)
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/calls`)
     setCalls(response.data)
+    const res2 = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/calendar`)
+    if (session?.user.type === 'Administrador') {
+      setCalendars(res.data)
+    } else {
+      const calendar = res2.data.find((calendar: any) => calendar.name === session?.user.name)
+      setCalendars([calendar])
+      setSelectCalendar(calendar._id)
+      const callsFilter = response.data.filter((call: any) => call.calendar === calendar._id)
+      setFilterCalls(callsFilter)
+      const meetingsFilter = res.data.filter((meeting: any) => meeting.calendar === calendar._id)
+      setFilteredMeetings(meetingsFilter)
+    }
     setLoading(false)
   }
 
@@ -71,15 +83,6 @@ export default function CallsPage () {
 
   useEffect(() => {
     getClientData()
-  }, [])
-
-  const getCalendars = async () => {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/calendar`)
-    setCalendars(res.data)
-  }
-
-  useEffect(() => {
-    getCalendars()
   }, [])
 
   return (
@@ -162,12 +165,12 @@ export default function CallsPage () {
                               <p>Seleccionar calendario</p>
                               <div className="flex gap-4 flex-col lg:flex-row">
                                 <Select change={(e: any) => {
-                                  setSelectCaledar(e.target.value)
+                                  setSelectCalendar(e.target.value)
                                   const callsFilter = calls.filter(call => call.calendar === e.target.value)
                                   setFilterCalls(callsFilter)
                                   const meetingsFilter = meetings.filter(meeting => meeting.calendar === e.target.value)
                                   setFilteredMeetings(meetingsFilter)
-                                }} config="w-fit max-w-full">
+                                }} config="w-fit max-w-full" value={selectCalendar}>
                                   <option value=''>Seleccionar calendario</option>
                                   {
                                     calendars.map((calendar: any) => (
@@ -181,7 +184,7 @@ export default function CallsPage () {
                           : ''
                       }
                       {
-                        selectCaledar !== ''
+                        selectCalendar !== ''
                           ? (
                             <div className="flex flex-col gap-2">
                               <p>Seleccionar reunion</p>
@@ -189,7 +192,7 @@ export default function CallsPage () {
                                 <Select change={(e: any) => {
                                   if (e.target.value === 'Todas las reuniones') {
                                     setNewCall({ type: [''], nameMeeting: '', duration: '15 minutos', intervals: '', title: '', price: '', tags: [], labels: [{ data: '', text: '', type: '' }], buttonText: '', action: 'Mostrar mensaje', description: '', message: '', redirect: '', calendar: '' })
-                                    const meetingsFiltered = meetings.filter(meeting => meeting.calendar === selectCaledar)
+                                    const meetingsFiltered = meetings.filter(meeting => meeting.calendar === selectCalendar)
                                     setFilteredMeetings(meetingsFiltered)
                                     setCallSelect('')
                                   } else {

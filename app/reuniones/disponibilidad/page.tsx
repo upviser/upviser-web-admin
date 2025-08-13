@@ -26,13 +26,18 @@ export default function AvaliableCallsPage () {
   
   const popupRef = useRef<HTMLFormElement | null>(null);
 
-  const getCaledars = async () => {
+  const getCalendars = async () => {
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/calendar`)
-    setCalendars(res.data)
+    if (session?.user.type === 'Administrador') {
+      setCalendars(res.data)
+    } else {
+      const calendar = res.data.find((calendar: any) => calendar.name === session?.user.name)
+      setCalendars([calendar])
+    }
   }
 
   useEffect(() => {
-    getCaledars()
+    getCalendars()
   }, [])
 
   useEffect(() => {
@@ -78,7 +83,7 @@ export default function AvaliableCallsPage () {
                 setError('')
                 await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/calendar/${selectedCalendar}`)
                 setPopupDeleteCalendar({ ...popupDeleteCalendar, view: 'flex', opacity: 'opacity-0' })
-                getCaledars()
+                getCalendars()
                 setTimeout(() => {
                   setPopupDeleteCalendar({ ...popupDeleteCalendar, view: 'hidden', opacity: 'opacity-0' })
                   setLoading(false)
@@ -106,7 +111,7 @@ export default function AvaliableCallsPage () {
             if (newCalendar.name !== '') {
               await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/calendar`, newCalendar)
               setPopupNewCalendar({ ...popupNewCalendar, view: 'flex', opacity: 'opacity-0' })
-              getCaledars()
+              getCalendars()
               setTimeout(() => {
                 setPopupNewCalendar({ ...popupNewCalendar, view: 'hidden', opacity: 'opacity-0' })
                 setLoading(false)
