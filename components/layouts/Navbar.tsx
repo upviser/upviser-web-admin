@@ -46,8 +46,6 @@ export const Navbar: React.FC<PropsWithChildren> = ({ children }) => {
   const router = useRouter()
   const pathname = usePathname()
 
-  const asd = ''
-
   useEffect(() => {
     if (session === null) {
       router.push('/ingresar');
@@ -172,22 +170,22 @@ export const Navbar: React.FC<PropsWithChildren> = ({ children }) => {
                 <div className='flex flex-col gap-1'>
                   <Link href='/' className={`transition-all duration-150 ${pathname === '/' ? 'bg-main' : 'hover:bg-neutral-100 dark:hover:bg-main/30'} flex gap-2 py-1.5 px-3 rounded-xl`}><AiOutlineHome className={`mt-auto mb-auto text-xl ${pathname === '/' ? 'text-white' : 'text-main'}`} /><p className={`${pathname === '/' ? 'text-white' : ''}`}>Inicio</p></Link>
                   {
-                    session?.user.type === 'Administrador' || session?.user.permissions?.includes('Pagos') && asd !== ''
+                    session?.user.type === 'Administrador' && session?.user.permissions?.includes('Pagos')
                       ? <Link href='/pagos' className={`transition-all duration-150 ${pathname.includes('/pagos') ? 'bg-main' : 'hover:bg-neutral-100 dark:hover:bg-main/30'} flex py-1.5 px-3 gap-2 rounded-xl`}><MdOutlinePayment className={`mt-auto mb-auto text-xl ${pathname.includes('/pagos') ? 'text-white' : 'text-main'}`} /><p className={`${pathname.includes('/pagos') ? 'text-white' : ''}`}>Pagos</p></Link>
                       : ''
                   }
                   {
-                    session?.user.type === 'Administrador' || session?.user.permissions?.includes('Servicios') && asd !== ''
+                    session?.user.type === 'Administrador' && session?.user.permissions?.includes('Servicios')
                       ? <Link href='/servicios' className={`transition-all duration-150 ${pathname.includes('/servicios') ? 'bg-main' : 'hover:bg-neutral-100 dark:hover:bg-main/30'} flex py-1.5 px-3 gap-2 rounded-xl`}><PiSuitcaseSimple className={`mt-auto mb-auto text-xl ${pathname.includes('/servicios') ? 'text-white' : 'text-main'}`} /><p className={`${pathname.includes('/servicios') ? 'text-white' : ''}`}>Servicios</p></Link>
                       : ''
                   }
                   {
-                    session?.user.type === 'Administrador' || session?.user.permissions?.includes('Embudos') && asd !== ''
+                    session?.user.type === 'Administrador' && session?.user.permissions?.includes('Embudos')
                       ? <Link href='/embudos' className={`transition-all duration-150 ${pathname.includes('/embudos') ? 'bg-main' : 'hover:bg-neutral-100 dark:hover:bg-main/30'} flex py-1.5 px-3 gap-2 rounded-xl`}><AiOutlineFunnelPlot className={`mt-auto mb-auto text-xl ${pathname.includes('/embudos') ? 'text-white' : 'text-main'}`} /><p className={`${pathname.includes('/embudos') ? 'text-white' : ''}`}>Embudos</p></Link>
                       : ''
                   }
                   {
-                    session?.user.type === 'Administrador' || session?.user.permissions?.includes('CRM') && asd !== ''
+                    session?.user.type === 'Administrador' && session?.user.permissions?.includes('CRM')
                       ? <Link href='/crm' className={`transition-all duration-150 ${pathname.includes('/crm') ? 'bg-main' : 'hover:bg-neutral-100 dark:hover:bg-main/30'} flex py-1.5 px-3 gap-2 rounded-xl`}><LiaClipboardListSolid className={`mt-auto mb-auto text-xl ${pathname.includes('/crm') ? 'text-white' : 'text-main'}`} /><p className={`${pathname.includes('/crm') ? 'text-white' : ''}`}>CRM</p></Link>
                       : ''
                   }
@@ -207,12 +205,12 @@ export const Navbar: React.FC<PropsWithChildren> = ({ children }) => {
                       : ''
                   }
                   {
-                    session?.user.type === 'Administrador' || session?.user.permissions?.includes('Campañas') && asd !== ''
+                    session?.user.type === 'Administrador' && session?.user.permissions?.includes('Campañas')
                       ? <Link href='/campanas' className={`transition-all duration-150 ${pathname.includes('/campanas') ? 'bg-main' : 'hover:bg-neutral-100 dark:hover:bg-main/30'} flex gap-2 py-1.5 px-3 rounded-xl`}><AiOutlineNotification className={`mt-auto mb-auto text-xl ${pathname.includes('/campanas') ? 'text-white' : 'text-main'}`} /><p className={`${pathname.includes('/campanas') ? 'text-white' : ''}`}>Campañas</p></Link>
                       : ''
                   }
                   {
-                    session?.user.type === 'Administrador' || session?.user.permissions?.includes('Automatizaciones') && asd !== ''
+                    session?.user.type === 'Administrador' && session?.user.permissions?.includes('Automatizaciones')
                       ? <Link href='/automatizaciones' className={`transition-all duration-150 ${pathname.includes('/automatizaciones') ? 'bg-main' : 'hover:bg-neutral-100 dark:hover:bg-main/30'} flex gap-2 py-1.5 px-3 rounded-xl`}><FaCogs className={`mt-auto mb-auto text-xl ${pathname.includes('/automatizaciones') ? 'text-white' : 'text-main'}`} /><p className={`${pathname.includes('/automatizaciones') ? 'text-white' : ''}`}>Automatizaciones</p></Link>
                       : ''
                   }
