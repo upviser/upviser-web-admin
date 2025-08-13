@@ -90,7 +90,7 @@ export default function Page () {
               <Spinner />
             </div>
           )
-          : !accounts?.length
+          : accounts?.length
             ? (
               <form onSubmit={handleSubmit} className='m-auto bg-white flex flex-col gap-4 w-[450px] border border-[#f3f3f3] rounded-xl p-9' style={{ boxShadow: '0px 3px 10px 3px #f9f9f9' }}>
                 {
