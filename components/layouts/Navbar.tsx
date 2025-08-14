@@ -331,7 +331,12 @@ export const Navbar: React.FC<PropsWithChildren> = ({ children }) => {
                 }
               }} className={`${account.opacity} ${account.view} transition-opacity duration-200 fixed z-50 w-full h-full mt-[1px]`}>
                 <div onMouseEnter={() => setAccount({ ...account, mouse: true })} onMouseLeave={() => setAccount({ ...account, mouse: false })} className={`${account.opacity === 'opacity-1' ? 'scale-100' : 'scale-90'} transition-transform duration-200 flex flex-col gap-2 border border-black/5 p-6 w-64 bg-white rounded-xl h-fit ml-auto dark:bg-neutral-800`} style={{ boxShadow: '0px 3px 10px 3px #11111108' }}>
-                  <Link href={'/configuracion-usuario'}>Mis datos</Link>
+                  <Link href={'/configuracion-usuario'} onClick={() => {
+                    setAccount({ ...account, view: 'flex', opacity: 'opacity-0' })
+                    setTimeout(() => {
+                      setAccount({ ...account, view: 'hidden', opacity: 'opacity-0' })
+                    }, 200)
+                  }}>Mis datos</Link>
                   <button onClick={async (e: any) => {
                     e.preventDefault()
                     setAccount({ ...account, view: 'flex', opacity: 'opacity-0' })
