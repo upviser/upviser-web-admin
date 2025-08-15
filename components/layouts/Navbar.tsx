@@ -40,6 +40,7 @@ export const Navbar: React.FC<PropsWithChildren> = ({ children }) => {
   const [notification, setNotification] = useState(false)
   const [menu, setMenu] = useState('hidden')
   const [messages, setMessages] = useState(false)
+  const [loadingLogout, setLoadingLogout] = useState(false)
 
   const notificationsRef = useRef(notifications)
 
@@ -339,12 +340,16 @@ export const Navbar: React.FC<PropsWithChildren> = ({ children }) => {
                   }}>Mis datos</Link>
                   <Button action={async (e: any) => {
                     e.preventDefault()
-                    setAccount({ ...account, view: 'flex', opacity: 'opacity-0' })
-                    setTimeout(() => {
-                      setAccount({ ...account, view: 'hidden', opacity: 'opacity-0' })
-                    }, 200)
-                    await signOut()
-                  }}>Cerrar sesión</Button>
+                    if (!loadingLogout) {
+                      setLoadingLogout(true)
+                      await signOut()
+                      setAccount({ ...account, view: 'flex', opacity: 'opacity-0' })
+                      setTimeout(() => {
+                        setAccount({ ...account, view: 'hidden', opacity: 'opacity-0' })
+                      }, 200)
+                      setLoadingLogout(false)
+                    }
+                  }} loading={loadingLogout} config='w-full'>Cerrar sesión</Button>
                 </div>
               </div>
               <div className={`${notificationsView.view} ${notificationsView.opacity} transition-opacity duration-200 w-full absolute z-50 flex`} onClick={(e: any) => {
