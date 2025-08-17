@@ -22,7 +22,11 @@ export const Nav = () => {
       <div className='flex flex-col gap-2'>
         <Link className={`flex gap-2 ${pathname === '/configuracion' ? 'bg-main text-white' : 'hover:bg-neutral-100 dark:hover:bg-neutral-700'} p-1.5 rounded-xl transition-all duration-200`} href='/configuracion'><HiOutlineInformationCircle className={`${pathname === '/configuracion' ? 'text-white' : 'text-main'} my-auto  text-xl`} />Información del negocio</Link>
         <Link className={`flex gap-2 ${pathname === '/configuracion/usuarios' ? 'bg-main text-white' : 'hover:bg-neutral-100 dark:hover:bg-neutral-700'} p-1.5 rounded-xl transition-all duration-200`} href='/configuracion/usuarios'><FaUser className={`${pathname === '/configuracion/usuarios' ? 'text-white' : 'text-main'} my-auto text-xl`} />Usuarios</Link>
-        <Link className={`flex gap-2 ${pathname === '/configuracion/pasarela-de-pago' ? 'bg-main text-white' : 'hover:bg-neutral-100 dark:hover:bg-neutral-700'} p-1.5 rounded-xl transition-all duration-200`} href='/configuracion/pasarela-de-pago'><BsCreditCard className={`${pathname === '/configuracion/pasarela-de-pago' ? 'text-white' : 'text-main'} my-auto text-xl`} />Pasarela de pago</Link>
+        {
+          session?.user.type === 'Administrador' && session?.user.permissions?.includes('Pagos')
+            ? <Link className={`flex gap-2 ${pathname === '/configuracion/pasarela-de-pago' ? 'bg-main text-white' : 'hover:bg-neutral-100 dark:hover:bg-neutral-700'} p-1.5 rounded-xl transition-all duration-200`} href='/configuracion/pasarela-de-pago'><BsCreditCard className={`${pathname === '/configuracion/pasarela-de-pago' ? 'text-white' : 'text-main'} my-auto text-xl`} />Pasarela de pago</Link>
+            : ''
+        }
         <Link className={`flex gap-2 ${pathname === '/configuracion/politicas' ? 'bg-main text-white' : 'hover:bg-neutral-100 dark:hover:bg-neutral-700'} p-1.5 rounded-xl transition-all duration-200`} href='/configuracion/politicas'><AiOutlineFileDone className={`${pathname === '/configuracion/politicas' ? 'text-white' : 'text-main'} my-auto text-xl`} />Politicas</Link>
         <Link className={`flex gap-2 ${pathname === '/configuracion/integraciones' ? 'bg-main text-white' : 'hover:bg-neutral-100 dark:hover:bg-neutral-700'} p-1.5 rounded-xl transition-all duration-200`} href='/configuracion/integraciones'><MdOutlineIntegrationInstructions className={`${pathname === '/configuracion/integraciones' ? 'text-white' : 'text-main'} my-auto text-xl`} />Integraciones</Link>
       </div>
