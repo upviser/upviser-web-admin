@@ -32,7 +32,12 @@ export default function AvaliableCallsPage () {
       setCalendars(res.data)
     } else {
       const calendar = res.data.find((calendar: any) => calendar.name === session?.user.name)
-      setCalendars([calendar])
+      if (calendar) {
+        setCalendars([calendar])
+      } else {
+        setCalendars(res.data)
+      }
+      
     }
   }
 

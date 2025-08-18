@@ -41,15 +41,19 @@ export default function CallsPage () {
     setCalls(response.data)
     const res2 = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/calendar`)
     if (session?.user.type === 'Administrador') {
-      setCalendars(res.data)
+      setCalendars(res2.data)
     } else {
       const calendar = res2.data.find((calendar: any) => calendar.name === session?.user.name)
-      setCalendars([calendar])
-      setSelectCalendar(calendar._id)
-      const callsFilter = response.data.filter((call: any) => call.calendar === calendar._id)
-      setFilterCalls(callsFilter)
-      const meetingsFilter = res.data.filter((meeting: any) => meeting.calendar === calendar._id)
-      setFilteredMeetings(meetingsFilter)
+      if (calendar) {
+        setCalendars([calendar])
+        setSelectCalendar(calendar._id)
+        const callsFilter = response.data.filter((call: any) => call.calendar === calendar._id)
+        setFilterCalls(callsFilter)
+        const meetingsFilter = res.data.filter((meeting: any) => meeting.calendar === calendar._id)
+        setFilteredMeetings(meetingsFilter)
+      } else {
+        setCalendars(res2.data)
+      }
     }
     setLoading(false)
   }
@@ -122,7 +126,7 @@ export default function CallsPage () {
         </div>
       </div>
       <PopupNewCall popupCall={popupCall} setPopupCall={setPopupCall} titleMeeting={title} newCall={newCall} setNewCall={setNewCall} getCalls={getMeetings} tags={tags} getTags={getTags} error={error} setError={setError} funnels={funnels} newData={newData} setNewData={setNewData} loadingNewData={loadingNewData} setLoadingNewData={setLoadingNewData} clientData={clientData} getClientData={getClientData} />
-      <main className="flex flex-col p-4 lg:p-6 gap-6 h-full w-full bg-bg dark:bg-neutral-900">
+      <main className="flex flex-col p-4 lg:p-6 gap-6 h-full w-full overflow-y-auto bg-bg dark:bg-neutral-900">
         <div className="w-full flex flex-col gap-6 mx-auto max-w-[1280px]">
           <div className="flex gap-4 justify-between flex-col lg:flex-row">
             <h1 className="text-2xl font-medium my-auto">Reuniones</h1>
